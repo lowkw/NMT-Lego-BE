@@ -9,11 +9,35 @@ use App\Models\legoSet;
 class LegoSetController extends Controller
 {
     /**
+     * Add the permissions during object instantiation.
+     *
+     */
+    function __construct()
+    {
+        // TODO: Need to create a suitable "not authorised" JSON response.
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+    /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
+        return view('welcome');
+        $legoSets = legoSet::paginate(20);
+        return view('legoSets.index', compact(['legoSets',]));
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\legoSet  $legoSet
+     */
+    public function show(legoSet $legoSet)
+    {
+        return view('legoSets.show', compact(['legoSet',]));
     }
 
     /**
@@ -28,14 +52,6 @@ class LegoSetController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StorelegoSetRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(legoSet $legoSet)
     {
         //
     }
