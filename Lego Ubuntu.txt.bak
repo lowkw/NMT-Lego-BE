@@ -1,0 +1,21 @@
+
+sail composer require laravel/breeze
+sail artisan breeze:install
+sail npm install
+sail npm run dev
+
+sail artisan make:model Set --seed --migration
+sail artisan make:model Collection --seed --migration
+sail artisan make:model Theme --seed --migration
+sail artisan make:model Wishlist --seed --migration
+    
+
+Create Pivot table collection_set (singular, just migration and no model needed):
+sail artisan make:migration create_collection_set_table
+
+Create Pivot table wishlist_set (singular, just migration and no model needed):
+sail artisan make:migration create_wishlist_set_table
+
+sail artisan migrate:fresh --seed --step
+  
+sail artisan make:controller SetController --resource   
