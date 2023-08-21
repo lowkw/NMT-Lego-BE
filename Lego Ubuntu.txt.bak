@@ -1,0 +1,10 @@
+
+sail composer require laravel/breeze
+sail artisan breeze:install
+sail npm install
+sail npm run dev
+
+sail artisan make:model legoSet -a 
+
+sail artisan migrate:fresh --seed --step
+  
