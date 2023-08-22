@@ -24,10 +24,11 @@ class LegoSetController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        //return view('welcome');
         $legoSets = legoSet::paginate(20);
         return view('legoSets.index', compact(['legoSets',]));
         //
+        //return view('legoSets.lego-set');
     }
 
     /**
