@@ -530,6 +530,10 @@ input[type="range"] {
   margin-top:80px;
 }
 
+.lego-set-img {
+    height: 300px;
+}
+
 @media (max-width: 768px) {
   .half-bg {
     width: 100%;

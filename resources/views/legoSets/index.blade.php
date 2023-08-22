@@ -95,25 +95,25 @@
     <div class="container">
         <div class="row row-cols-auto justify-content-md-center">
                 <!--Sets-->
+            @foreach($legoSets as $set)
                 <div class="col" style="padding:1%;">
                     <div class="card" style="width: 25rem;">
                         <div style="">
-                            <img src="" class="img-fluid" alt=""  width="300" height="300">
+                            <img src="{{ $set->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
                         </div>
                         <div class="card-body">
                             <p class="card-text">
 
-                            </p><h3 class="text-center">Test 1</h3>
-                            <p class="text-center">123          |
-                                Test
-                            </p>
+                            </p><h3 class="text-center">{{ $set->name }}</h3>
+                            <p class="text-center">{{ $set->set_num }} | Theme</p>
                             <div class="d-grid gap-2 col-6 mx-auto">
-                                <a role="button" href="http://localhost/lego-theme-rowan/sets/lion-knights-castle/" class="btn btn-primary btn-sm">View Set -&gt;</a>
+                                <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
                             </div>
                             <p></p>
                         </div>
                     </div>
                 </div>
+            @endforeach
                 <!--End Sets-->
 
 
@@ -121,21 +121,9 @@
             <div class="col-12 col-md-12"></div>
             <div class="col text-center">
                 <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="p-6">
+                        {{ $legoSets->links() }}
+                    </div>
                 </nav>
             </div>
         </div>

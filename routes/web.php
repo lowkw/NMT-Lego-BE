@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/sets', [LegoSetController::class, 'index'])->name('sets');
+Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
