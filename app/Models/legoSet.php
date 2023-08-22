@@ -12,9 +12,12 @@ class legoSet extends Model
     protected $fillable = [
         'set_num',
         'name',
+        'description',
         'year',
         'num_parts',
-        'set_img_url'
+        'set_img_url',
+        'size',
+        'type',
     ];
     /**
      * The attributes that should be cast.
