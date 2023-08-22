@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('lego_sets', function (Blueprint $table) {
             $table->id();
+            $table->string('set_num', 64)->unique();
+            $table->string('name', 256);
+            $table->year('year')->nullable();
+            $table->smallInteger('num_parts')->nullable();
+            $table->string('set_img_url')->nullable();
             $table->timestamps();
         });
     }

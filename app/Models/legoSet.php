@@ -10,11 +10,10 @@ class legoSet extends Model
     use HasFactory;
 
     protected $fillable = [
-        'set_number',
+        'set_num',
         'name',
         'description',
         'year',
-        'theme_id',
         'num_parts',
         'set_img_url',
         'size',
