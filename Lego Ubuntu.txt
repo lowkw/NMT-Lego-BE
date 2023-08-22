@@ -6,5 +6,21 @@ sail npm run dev
 
 sail artisan make:model legoSet -a 
 
+   INFO  Model [app/Models/legoSet.php] created successfully.
+
+   INFO  Factory [database/factories/LegoSetFactory.php] created successfully.
+
+   INFO  Migration [database/migrations/2023_08_21_144112_create_lego_sets_table.php] created successfully.
+
+   INFO  Seeder [database/seeders/LegoSetSeeder.php] created successfully.
+
+   INFO  Request [app/Http/Requests/StorelegoSetRequest.php] created successfully.
+
+   INFO  Request [app/Http/Requests/UpdatelegoSetRequest.php] created successfully.
+
+   INFO  Controller [app/Http/Controllers/LegoSetController.php] created successfully.
+
+   INFO  Policy [app/Policies/LegoSetPolicy.php] created successfully.
+
 sail artisan migrate:fresh --seed --step
   
