@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('lego_sets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('theme_id');
             $table->string('set_num', 64)->unique();
             $table->string('name', 256);
             $table->year('year')->nullable();
