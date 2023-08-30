@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('set_num', 64)->unique();
             $table->string('name', 256);
             $table->year('year')->nullable();
-            $table->smallInteger('theme_id')->nullable();
             $table->smallInteger('num_parts')->nullable();
             $table->string('set_img_url')->nullable();
             $table->timestamps();
