@@ -47,6 +47,7 @@ class LegoSetSeeder extends Seeder
                     'set_num' => $set->set_num ?? null,
                     'name' => $set->name ?? null,
                     'year' => $set->year ?? null,
+                    'theme_id' => $set->theme_id ?? null,
                     'num_parts' => $set->num_parts ?? null,
                     'set_img_url' => $set->set_img_url ?? null
                 ];

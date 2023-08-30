@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class legoSet extends Model
 {
@@ -14,6 +15,7 @@ class legoSet extends Model
         'name',
         'description',
         'year',
+        'theme_id',
         'num_parts',
         'set_img_url',
         'size',
@@ -28,4 +30,11 @@ class legoSet extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+    /**
+     * Get the theme that owns to the set.
+     */
+    public function theme(): BelongsTo
+    {
+        return $this->belongsTo(themes::class);
+    }
 }
