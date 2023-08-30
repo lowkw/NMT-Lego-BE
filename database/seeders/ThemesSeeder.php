@@ -45,7 +45,7 @@ class ThemesSeeder extends Seeder
 
                 # Create theme record
                 $newTheme = [
-                    'theme_id' => $theme->id,
+                    'id' => $theme->id,
                     'parent_id' => $theme->parent_id ?? null,
                     'name' => $theme->name ?? null,
                 ];

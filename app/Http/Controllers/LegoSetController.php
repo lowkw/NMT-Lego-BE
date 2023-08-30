@@ -25,7 +25,8 @@ class LegoSetController extends Controller
     public function index()
     {
         //return view('welcome');
-        $legoSets = legoSet::paginate(20);
+        $legoSets = legoSet::orderBy('id', 'DESC')->paginate(12);
+        
         return view('legoSets.index', compact(['legoSets',]));
         //
         //return view('legoSets.lego-set');
