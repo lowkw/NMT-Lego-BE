@@ -105,7 +105,7 @@
                             <p class="card-text">
 
                             </p><h3 class="text-center">{{ $set->name }}</h3>
-                            <p class="text-center">{{ $set->set_num }} | Theme</p>
+                            <p class="text-center">{{ $set->set_num }} | {{ $set->theme }}</p>
                             <div class="d-grid gap-2 col-6 mx-auto">
                                 <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
                             </div>
