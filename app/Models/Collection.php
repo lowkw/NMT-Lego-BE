@@ -10,6 +10,9 @@ class Collection extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+    ];
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
