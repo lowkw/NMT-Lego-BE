@@ -13,14 +13,8 @@ return new class extends Migration
     {
         Schema::create('collection_lego_set', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('collection_id')->default(1);
-            $table->unsignedBigInteger('lego_set_id')->default(1);
-
-            $table->foreign('collection_id')->references('id')
-                ->on('collections')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('lego_set_id')->references('id')
-                ->on('lego_sets')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->foreignId('collection_id')->constrained();
+            $table->foreignId('lego_set_id')->constrained();
             $table->timestamps();
         });
     }
