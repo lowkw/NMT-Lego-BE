@@ -9,7 +9,6 @@ class themes extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'theme_id',
         'parent_id',
         'name',
     ];
