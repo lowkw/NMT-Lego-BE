@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class legoSet extends Model
 {
@@ -36,5 +37,15 @@ class legoSet extends Model
     public function theme(): BelongsTo
     {
         return $this->belongsTo(themes::class);
+    }
+    /**
+     * Return the collections of a Lego set (Many-to-many)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+
+    public function collections():belongsToMany
+    {
+        return $this->belongsToMany(Collection::class, 'collection_lego_set', 'lego_set_id','collection_id');
     }
 }
