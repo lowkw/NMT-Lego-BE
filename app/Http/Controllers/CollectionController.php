@@ -15,9 +15,9 @@ class CollectionController extends Controller
     {
         $user = auth()->user();
 
-        $legoCollection = Collection::where('user_id', $user->collections_id)->with('sets')->first();
+        $legoCollection = Collection::where('user_id', $user->id)->with('sets')->first();
 
-        $userlegoSets = $legoCollection->sets;
+        $userlegoSets = $legoCollection->sets()->orderBy('id', 'DESC')->paginate(12);;
 
         return view('legoCollection.index', compact('userlegoSets'));
     }

@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('/sets', [LegoSetController::class, 'index'])->name('sets');
 Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show');
 
-Route::get('/collection', 'CollectionController')->name('legoCollection.index');
+Route::get('/collection',  [CollectionController::class, 'index'])->name('legoCollection.index');
 
 
 Route::get('/dashboard', function () {

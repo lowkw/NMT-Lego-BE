@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-10 offset-md-1 col-sm-12 offset-sm-0 overflow-hidden text-center">
-                    <h1 class="page-title" style="color:white;">Items in {{ $user->name }}'s Collection</h1>
+                    <h1 class="page-title" style="color:white;">Items in {{ Auth::user()->name }}'s Collection</h1>
                 </div>
             </div>
         </div>
@@ -99,16 +99,16 @@
         <div class="row row-cols-auto justify-content-md-center">
 
             <!--Collection Sets-->
-            @foreach($userLegoSets as $legoSet)
+            @foreach($userlegoSets as $set)
                 <div class="col" style="padding:1%;">
                     <div class="card" style="width: 25rem;">
                         <div style="">
-                            <img src="{{ $legoSet->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $legoSet->name }}" height="300px">
+                            <img src="{{ $set->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
                         </div>
                         <div class="card-body">
                             <p class="card-text">
-                            </p><h3 class="text-center">{{ $legoSet->name }}</h3>
-                            <p class="text-center">{{ $legoSet->set_num }} | {{ $legoSet->theme->name }}</p>
+                            </p><h3 class="text-center">{{ $set->name }}</h3>
+                            <p class="text-center">{{ $set->set_num }} | {{ $set->theme->name }}</p>
                             <div class="d-grid gap-2 col-6 mx-auto">
                                 <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
                             </div>
@@ -117,13 +117,13 @@
                     </div>
                 </div>
             @endforeach
-
+            
             <!--Pagination-->
             <div class="col-12 col-md-12"></div>
             <div class="col text-center">
                 <nav aria-label="Page navigation example">
                     <div class="p-6">
-                        {{ $legoSet->onEachSide(0)->links() }}
+                        {{ $userlegoSets->links() }}
                     </div>
                 </nav>
             </div>
