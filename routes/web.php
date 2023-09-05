@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\LegoSetController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,9 @@ Route::get('/', function () {
 });
 Route::get('/sets', [LegoSetController::class, 'index'])->name('sets');
 Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show');
+
+Route::get('/lego-collection', 'CollectionController')->name('legoCollection.index');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
