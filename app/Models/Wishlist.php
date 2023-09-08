@@ -11,7 +11,9 @@ class Wishlist extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'name',
+        'user_id',
+        'public',
     ];
     protected $casts = [
         'created_at' => 'datetime',

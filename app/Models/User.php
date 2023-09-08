@@ -48,4 +48,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Collection::class);
     }
+    public function wishlist(): BelongsTo
+    {
+        return $this->belongsTo(Wishlist::class);
+    }
 }
