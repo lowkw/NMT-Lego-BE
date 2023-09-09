@@ -48,4 +48,8 @@ class legoSet extends Model
     {
         return $this->belongsToMany(Collection::class, 'collection_lego_set', 'lego_set_id','collection_id');
     }
+    public function wishlists():belongsToMany
+    {
+        return $this->belongsToMany(Wishlist::class, 'wishlist_lego_set', 'lego_set_id','wishlist_id');
+    }
 }
