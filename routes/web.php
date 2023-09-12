@@ -25,7 +25,10 @@ Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show')
 
 Route::get('/collection',  [CollectionController::class, 'index'])->name('legoCollection.index');
 
+Route::get('/wishlist/index', [WishlistController::class,'index'])->name('index');
 Route::resource('wishlist', WishlistController::class);
+Route::get('/wishlist/{id}/remove', [WishlistController::class, 'destroy'])
+    ->name('wishlistRemove');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
