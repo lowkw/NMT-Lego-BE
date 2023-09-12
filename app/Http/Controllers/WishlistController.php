@@ -57,7 +57,11 @@ class WishlistController extends Controller
      */
     public function show(Wishlist $wishlist)
     {
-        //
+        $user = auth()->user();
+
+        $userWishlist = Wishlist::where('user_id', $user->id)->where('id',$wishlist->getKey())->with('sets')->first();
+        $userlegoSets = $userWishlist->sets()->orderBy('id', 'DESC')->paginate(12);;
+        return view('wishlist.show', compact(['wishlist','userlegoSets']));
     }
 
     /**
