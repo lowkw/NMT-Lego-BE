@@ -5,7 +5,7 @@
         <div>
             <div class="grid grid-cols-6 gap-6">
                 <div></div>
-                <div class="text-sm md:text-base md:w-1/2">
+                <div>
                     <div class="mb-2 text-xs sm:text-sm md:text-base  font-semibold text-gray-900 dark:text-white">
                         <img src="{{ asset('/images/logo.png') }}" class="img-fluid" alt=""  width="300" height="300">
                     </div>

@@ -3,10 +3,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg" aria-label="Eleventh navbar example">
             <div class="container-fluid">
-                <p>
                     <img src="{{ asset('/images/logo.png') }}" class="img-fluid" alt=""  width="300" height="300">
-                </p>
-                </p>
                 <p>
                     <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
