@@ -38,10 +38,7 @@
                     <label class="form-check-label" for="public">Public?</label>
                     <input type="checkbox" class="form-check-input" role="switch" id="public" name="public" @checked(old('public'))>
                 </div>
-
                 <div class="">
-
-                    <span></span>
 
                     <div class="mt-6 flex flex-row gap-4">
                         <a href="{{ route('dashboard') }}"
