@@ -3,7 +3,6 @@
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\LegoSetController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +24,6 @@ Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show')
 
 Route::get('/collection',  [CollectionController::class, 'index'])->name('legoCollection.index');
 
-Route::resource('wishlist', WishlistController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

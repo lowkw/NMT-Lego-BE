@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreWishlistRequest;
 use App\Http\Requests\UpdateWishlistRequest;
 use App\Models\Wishlist;
-use Illuminate\Http\Request;
 
 class WishlistController extends Controller
 {
@@ -22,34 +21,15 @@ class WishlistController extends Controller
      */
     public function create()
     {
-        return view('wishlist.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreWishlistRequest $request)
     {
-        $user = auth()->user();
-
-        if(isset($request['public'])) {
-            $request['public'] = true;
-        } else {
-            $request['public'] = false;
-        }
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'public' => 'boolean'
-        ]);
-
-        $wishlist = Wishlist::create([
-            'name' => $validated['name'],
-            'user_id' => $user->id,
-            'public' => $validated['public'],
-        ]);
-
-        return redirect()->route('dashboard')
-            ->with('success', "Wishlist '$wishlist->name' created successfully.");
+        //
     }
 
     /**
