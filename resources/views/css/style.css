@@ -18,8 +18,8 @@ Tags: custom-logo, custom-menu, featured-images
     Droid Serif, Times, Source Serif Pro, serif, Apple Color Emoji,
     Segoe UI Emoji, Segoe UI Symbol;
   --font-size: 18px;
-  --color-primary: #159BCE;
-  --color-secondary: #ffda00;
+  --color-primary: #159bce;
+  --color-secondary: #d2d2d2;
   --color-tertiary: #B33F62;
   --color-dark: #333;
   --color-light: #f2f2f2;
@@ -128,7 +128,7 @@ cite span {
 }
 
 .btn.btn-secondary {
-  color: #fff;
+  color: #383838;
   background-color: var(--color-secondary);;
 }
 
@@ -201,6 +201,14 @@ ul#menu-primary-menu {
 
 .subscribe-bar h2, .subscribe-bar h3 {
   color: #fff;
+}
+
+.container.banner-overlay {
+    padding: 40px;
+    margin-top: -100px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 30px 40px #0000001f;
 }
 
 @media screen and (max-width: 576px) {
