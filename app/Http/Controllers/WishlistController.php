@@ -14,7 +14,8 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        //
+        $wishlists = Wishlist::query()->paginate(10);
+        return view('wishlist.index', compact(['wishlists']));
     }
 
     /**
@@ -65,7 +66,13 @@ class WishlistController extends Controller
      */
     public function edit(Wishlist $wishlist)
     {
-        //
+
+        //$wishlist = Wishlist::query()->find($id);
+        //$legoCollection = Wishlist::with('sets')->first();
+
+        //$userlegoSets = $legoCollection->sets()->orderBy('id', 'DESC')->paginate(12);;
+
+        return view('wishlist.edit', compact(['wishlist']));
     }
 
     /**
@@ -73,7 +80,27 @@ class WishlistController extends Controller
      */
     public function update(UpdateWishlistRequest $request, Wishlist $wishlist)
     {
-        //
+
+        // Use the update method to update the model and save it to the database
+        //wishlist->update($validatedData);
+        if(isset($request['public'])) {
+            $request['public'] = true;
+        } else {
+            $request['public'] = false;
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'public' => 'boolean'
+        ]);
+
+        $wishlist->update([
+            'name' => $validated['name'],
+            'public' => $validated['public'],
+        ]);
+
+        return redirect()->route('wishlist.index')
+            ->with('success', $wishlist->name.' updated successfully.');
     }
 
     /**
@@ -81,6 +108,8 @@ class WishlistController extends Controller
      */
     public function destroy(Wishlist $wishlist)
     {
-        //
+        $wishlist->delete();
+        return redirect()->route('dashboard')
+            ->with('success', 'Author deleted successfully.');
     }
 }
