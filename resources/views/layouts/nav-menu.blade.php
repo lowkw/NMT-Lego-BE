@@ -12,7 +12,7 @@
                         <li itemscope="itemscope" itemtype="" id="menu-item-42" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-42 nav-item"><a title="contact-us" href="#" class="nav-link">About</a></li>
                         <li itemscope="itemscope" itemtype="" id="menu-item-43" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-43 nav-item"><a title="profile" href="" class="nav-link">profile</a></li>
                         <li itemscope="itemscope" itemtype="" id="menu-item-44" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-44 nav-item"><a title="Sample Page" href="#" class="nav-link">Theme</a></li>
-                        <li itemscope="itemscope" itemtype="" id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45 nav-item"><a title="sets" href="" class="nav-link">sets</a></li>
+                        <li itemscope="itemscope" itemtype="" id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45 nav-item"><a title="sets" href="{{route('sets.index')}}" class="nav-link">sets</a></li>
                         <li itemscope="itemscope" itemtype="" id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45 nav-item"><a title="sets" href="" class="nav-link">Contact</a></li>
                     </ul></div>        </div>
         </nav>

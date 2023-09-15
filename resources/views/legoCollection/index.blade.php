@@ -96,12 +96,12 @@
     <!--User Collection -->
 
     <div class="container">
-        <div class="row row-cols-auto justify-content-md-center">
+        <div class="row justify-content-md-center">
 
             <!--Collection Sets-->
             @foreach($userlegoSets as $set)
-                <div class="col" style="padding:1%;">
-                    <div class="card" style="width: 25rem;">
+                <div class="col-12 col-sm-6 col-lg-4 mb-4">
+                    <div class="card">
                         <div style="">
                             <img src="{{ $set->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
                         </div>
@@ -117,7 +117,7 @@
                     </div>
                 </div>
             @endforeach
-            
+
             <!--Pagination-->
             <div class="col-12 col-md-12"></div>
             <div class="col text-center">
