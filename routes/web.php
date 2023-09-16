@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/sets', [LegoSetController::class, 'index'])->name('sets');
-Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show');
-
+//Route::get('/sets', [LegoSetController::class, 'index'])->name('sets');
+//Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show');
+Route::resource('sets', LegoSetController::class);
 Route::get('/collection',  [CollectionController::class, 'index'])->name('legoCollection.index');
 
 Route::get('/wishlist/index', [WishlistController::class,'index'])->name('index');

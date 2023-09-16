@@ -26,7 +26,6 @@ class LegoSetController extends Controller
     {
         //return view('welcome');
         $legoSets = legoSet::orderBy('id', 'DESC')->paginate(12);
-        
         return view('legoSets.index', compact(['legoSets',]));
         //
         //return view('legoSets.lego-set');
@@ -37,9 +36,14 @@ class LegoSetController extends Controller
      *
      * @param  \App\Models\legoSet  $legoSet
      */
-    public function show(legoSet $legoSet)
+    public function show(legoSet $set)
     {
-        return view('legoSets.show', compact(['legoSet',]));
+       $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
+            ->where('id', '!=', $set->id) // So you won't fetch same post
+           ->inRandomOrder()->paginate(3);
+        ;
+
+        return view('legoSets.show', compact(['set', 'relatedSets']));
     }
 
     /**
