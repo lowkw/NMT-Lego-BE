@@ -20,6 +20,12 @@
         <p>Number of parts: {{$set->num_parts}}</p>
         @endif
         <hr class="w-50">
+        <form action="{{ route('set.add', compact('set')) }}" method="post">
+            @csrf 
+            <button type="submit">
+                <i class="add-icon fa-solid fa-plus"></i>
+            </button>
+        </form>
     </div>
 </div>
     <div class="container pt-5">

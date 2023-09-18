@@ -85,4 +85,24 @@ class LegoSetController extends Controller
     {
         //
     }
+
+    /**
+     * Add set to collection.
+     */
+    public function add(legoSet $set)
+    {
+        $user = auth()->user();
+        $collection = $user->with('collection')->find($user->id);
+        $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
+            ->where('id', '!=', $set->id) // So you won't fetch same post
+            ->inRandomOrder()->paginate(3);
+        if($set->collections->contains($collection->id))
+        {
+            return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+                ->with('error', "'$set->name' is already in your collection.");
+        }
+        $set->collections()->attach($collection->id);
+        return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+        ->with('success', "Added '$set->name' to your collection successfully.");
+    }
 }
