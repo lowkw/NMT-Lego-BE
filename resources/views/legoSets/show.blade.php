@@ -4,7 +4,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-10 offset-md-1 col-sm-12 offset-sm-0 overflow-hidden text-center">
-                    <h1 class="page-title" style="color:white;">{{$set->name}}</h1>            </div>
+                    <h1 class="page-title" style="color:white;">{{$set->name}}</h1>
+                    <p class="page-subtitle" style="color:white;">{{$set->set_num}}</p>      
+                </div>
             </div>
         </div>
     </div>
