@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-10 offset-md-1 col-sm-12 offset-sm-0 overflow-hidden text-center">
                     <h1 class="page-title" style="color:white;">{{$set->name}}</h1>
-                    <p class="page-subtitle" style="color:white;">{{$set->set_num}}</p>      
+                    <p class="page-subtitle" style="color:white;">{{$set->set_num}}</p>
                 </div>
             </div>
         </div>
@@ -21,8 +21,8 @@
         @endif
         <hr class="w-50">
         <form action="{{ route('set.add', compact('set')) }}" method="post">
-            @csrf 
-            <button type="submit">
+            @csrf
+            <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to your Collection" type="submit">
                 <i class="add-icon fa-solid fa-plus"></i>
             </button>
         </form>
