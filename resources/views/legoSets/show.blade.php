@@ -36,19 +36,19 @@
         <div class="row justify-content-md-center">
 
             <!--Sets-->
-            @foreach($relatedSets as $set)
+            @foreach($relatedSets as $legoSet)
                 <div class="col-12 col-sm-6 col-lg-4 mb-4">
                     <div class="card">
                         <div style="">
-                            <img src="{{ $set->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
+                            <img src="{{ $legoSet->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
                         </div>
                         <div class="card-body">
                             <p class="card-text">
 
-                            </p><h3 class="text-center">{{ $set->name }}</h3>
-                            <p class="text-center">{{ $set->set_num }} | {{ $set->theme->name }}</p>
+                            </p><h3 class="text-center">{{ $legoSet->name }}</h3>
+                            <p class="text-center">{{ $legoSet->set_num }} | {{ $legoSet->theme->name }}</p>
                             <div class="d-grid gap-2 col-6 mx-auto">
-                                <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
+                                <a role="button" href="{{ route('sets.show', ['set'=>'legoSet']) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
                             </div>
                             <p></p>
                         </div>

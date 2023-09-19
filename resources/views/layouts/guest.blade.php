@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <!-- Latest compiled and minified CSS -->
-    @vite(['resources/views/css/style.css','resources/views/css/bootstrap.min.css','resources/views/css/solid.min.css','resources/views/js/bootstrap.bundle.js','resources/views/js/rangeSlider.js'])
+    @vite(['resources/views/js/app.js', 'resources/views/css/style.css','resources/views/css/bootstrap.min.css','resources/views/css/solid.min.css','resources/views/js/bootstrap.bundle.js','resources/views/js/rangeSlider.js'])
 
 </head>
 <body>
