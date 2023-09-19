@@ -129,5 +129,4 @@
         </div>
     </div>
 <!---------End Sets list----------->
-
 </x-guest-layout>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorelegoSetRequest;
 use App\Http\Requests\UpdatelegoSetRequest;
 use App\Models\legoSet;
+use App\Models\Wishlist;
+use Illuminate\Http\Request;
 
 class LegoSetController extends Controller
 {
@@ -42,8 +44,8 @@ class LegoSetController extends Controller
             ->where('id', '!=', $set->id) // So you won't fetch same post
            ->inRandomOrder()->paginate(3);
         ;
-
-        return view('legoSets.show', compact(['set', 'relatedSets']));
+        $userWishlist = Wishlist::where('user_id', 1)->get();
+        return view('legoSets.show', compact(['set', 'relatedSets','userWishlist']));
     }
 
     /**
@@ -57,9 +59,38 @@ class LegoSetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorelegoSetRequest $request)
+    public function store(Request $request)
     {
-        //
+        $user = auth()->user();
+        $wishlistId = $request->input('wishlist_id');
+        $legoSetId = $request->input('set_id');
+
+
+        $wishlist = Wishlist::find($wishlistId);
+
+        if ($wishlist)
+        {
+            $legoSet = LegoSet::find($legoSetId);
+
+            if ($legoSet) {
+                $existsInPivot = $wishlist->sets()->where('lego_set_id', $legoSetId)->exists();
+
+                if (!$existsInPivot) {
+                    // If it doesn't exist, attach the record
+                    $wishlist->sets()->attach($legoSet->id, ['created_at' => now(), 'updated_at' => now()]);
+
+                    return redirect()->route('dashboard')
+                        ->with('success', "Lego set '{$legoSet->name}' added to wishlist '{$wishlist->name}' successfully.");
+                } else {
+                    // If it already exists, return a message to the user
+                    return redirect()->route('dashboard')
+                        ->with('warning', "Lego set '{$legoSet->name}' is already in wishlist '{$wishlist->name}'.");
+                }
+                //$wishlist->sets()->attach($legoSet->id, ['created_at' => now(), 'updated_at' => now()]);
+            }
+        }
+        return redirect()->route('dashboard')
+            ->with('success', "Wishlist '$wishlist->name' added successfully.");
     }
 
     /**

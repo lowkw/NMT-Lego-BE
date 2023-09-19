@@ -13,7 +13,9 @@
     <!-- Scripts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <!-- Latest compiled and minified CSS -->
     @vite(['resources/views/css/style.css','resources/views/css/bootstrap.min.css','resources/views/css/solid.min.css','resources/views/js/bootstrap.bundle.js','resources/views/js/rangeSlider.js'])
+
 </head>
 <body>
 <div id="profile-navigation" class="sticky-top" style="background-color:#0d6efd">
@@ -55,6 +57,7 @@
         </header>
     @endif
 
+
     <!-- Page Content -->
     <main class="flex-grow">
 
@@ -67,5 +70,28 @@
     @include('layouts.footer')
 
 </div>
+<script>
+
+function tailwindModalToggle(){
+    //const modalButton = document.querySelector("[data-modal-toggle='small-modal']");
+    const modal = document.querySelector("#defaultModal");
+    modal.style.display = 'block';
+
+}
+
+function closeTailwindModalToggle() {
+    const modal = document.querySelector("#defaultModal");
+    modal.style.display = 'none';
+}
+function showLoading() {
+    // Show the loading element when the submit button is clicked
+    document.getElementById('loading').style.display = 'block';
+    closeTailwindModalToggle();
+    var btnAddtoWishlist = document.getElementById('btnAddtoWishlist');
+    btnAddtoWishlist.disabled = true;
+}
+
+
+</script>
 </body>
 </html>
