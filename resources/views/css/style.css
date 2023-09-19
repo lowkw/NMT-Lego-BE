@@ -558,6 +558,13 @@ input[type="range"] {
     height: 300px;
 }
 
+.add-icon {
+  padding:15px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: 3px;
+}
+
 @media (max-width: 768px) {
   .half-bg {
     width: 100%;
