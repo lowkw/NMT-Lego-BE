@@ -18,7 +18,7 @@
         <p>Number of parts: {{$set->num_parts}}</p>
         @endif
         <hr class="w-50">
-        <i class="fa-solid fa-square-plus pr-5" style="color: #159bce; font-size: 3rem;"></i>
+
         <button id="btnAddtoWishlist" class="px-3 py-1 rounded text-white show-modalss" onclick="tailwindModalToggle()">
             <i class="fa-solid fa-heart-circle-plus" style="color: #159bce;font-size: 3rem;"></i>
         </button>

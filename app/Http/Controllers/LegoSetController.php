@@ -43,7 +43,7 @@ class LegoSetController extends Controller
        $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
             ->where('id', '!=', $set->id) // So you won't fetch same post
            ->inRandomOrder()->paginate(3);
-        ;
+
         $userWishlist = Wishlist::where('user_id', 1)->get();
         return view('legoSets.show', compact(['set', 'relatedSets','userWishlist']));
     }
@@ -64,33 +64,33 @@ class LegoSetController extends Controller
         $user = auth()->user();
         $wishlistId = $request->input('wishlist_id');
         $legoSetId = $request->input('set_id');
+        $legoSet = LegoSet::find($legoSetId);
 
-
+        $relatedSets = legoSet::where('theme_id', '=', $legoSet->theme_id)
+            ->where('id', '!=', $legoSet->id) // So you won't fetch same post
+            ->inRandomOrder()->paginate(3);
         $wishlist = Wishlist::find($wishlistId);
 
-        if ($wishlist)
+        $set = $legoSet;
+        if ($legoSet)
         {
-            $legoSet = LegoSet::find($legoSetId);
+            $existsInPivot = $wishlist->sets()->where('lego_set_id', $legoSetId)->exists();
 
-            if ($legoSet) {
-                $existsInPivot = $wishlist->sets()->where('lego_set_id', $legoSetId)->exists();
+            if (!$existsInPivot) {
+                // If it doesn't exist, attach the record
+                $wishlist->sets()->attach($legoSet->id, ['created_at' => now(), 'updated_at' => now()]);
 
-                if (!$existsInPivot) {
-                    // If it doesn't exist, attach the record
-                    $wishlist->sets()->attach($legoSet->id, ['created_at' => now(), 'updated_at' => now()]);
-
-                    return redirect()->route('dashboard')
-                        ->with('success', "Lego set '{$legoSet->name}' added to wishlist '{$wishlist->name}' successfully.");
-                } else {
-                    // If it already exists, return a message to the user
-                    return redirect()->route('dashboard')
-                        ->with('warning', "Lego set '{$legoSet->name}' is already in wishlist '{$wishlist->name}'.");
-                }
-                //$wishlist->sets()->attach($legoSet->id, ['created_at' => now(), 'updated_at' => now()]);
+                return redirect()->route('sets.show', compact('set','relatedSets'))
+                    ->with('success', "Lego set '{$legoSet->name}' added to wishlist '{$wishlist->name}' successfully.");
+            } else {
+                // If it already exists, return a message to the user
+                return redirect()->route('sets.show',compact('set','relatedSets'))
+                    ->with('warning', "Lego set '{$legoSet->name}' is already in wishlist '{$wishlist->name}'.");
             }
+            //$wishlist->sets()->attach($legoSet->id, ['created_at' => now(), 'updated_at' => now()]);
         }
-        return redirect()->route('dashboard')
-            ->with('success', "Wishlist '$wishlist->name' added successfully.");
+        return redirect()->route('sets.show',compact('set','relatedSets'))
+            ->with('warning', "Lego set not added to '$wishlist->name'.");
     }
 
     /**
