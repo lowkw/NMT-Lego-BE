@@ -47,7 +47,7 @@ class LegoSetController extends Controller
         $user = auth()->user() ?? null;
         $userWishlists = collect();
         if (!$user == null) {
-            $userWishlists = Wishlist::where('user_id', '!=', $user->id)->get();
+            $userWishlists = Wishlist::where('user_id', '=', $user->id)->get();
         }
 
         return view('legoSets.show', compact(['set', 'relatedSets', 'userWishlists']));
