@@ -106,8 +106,18 @@
 
                             </p><h3 class="text-center">{{ $set->name }}</h3>
                             <p class="text-center">{{ $set->set_num }} | {{ $set->theme->name }}</p>
-                            <div class="d-grid gap-2 col-6 mx-auto">
-                                <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
+
+                            <!--Buttons-->
+                            <div class="flex space-x-4 justify-center mt-4">
+                                <div class="py-2">
+                                    <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
+                                </div>
+                                <form action="{{ route('set.add', compact('set')) }}" method="post">
+                                    @csrf
+                                    <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to your Collection" type="submit">
+                                        <i class="add-icon fa-solid fa-plus"></i>
+                                    </button>
+                                </form>
                             </div>
                             <p></p>
                         </div>
