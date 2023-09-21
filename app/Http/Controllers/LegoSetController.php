@@ -19,6 +19,7 @@ class LegoSetController extends Controller
         // TODO: Need to create a suitable "not authorised" JSON response.
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,16 +37,20 @@ class LegoSetController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\legoSet  $legoSet
+     * @param \App\Models\legoSet $legoSet
      */
     public function show(legoSet $set)
     {
-       $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
+        $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
             ->where('id', '!=', $set->id) // So you won't fetch same post
-           ->inRandomOrder()->paginate(3);
+            ->inRandomOrder()->paginate(3);;
+        $user = auth()->user() ?? null;
+        $userWishlists = collect();
+        if (!$user == null) {
+            $userWishlists = Wishlist::where('user_id', '=', $user->id)->get();
+        }
 
-        $userWishlist = Wishlist::where('user_id', 1)->get();
-        return view('legoSets.show', compact(['set', 'relatedSets','userWishlist']));
+        return view('legoSets.show', compact(['set', 'relatedSets', 'userWishlists']));
     }
 
     /**
@@ -115,5 +120,46 @@ class LegoSetController extends Controller
     public function destroy(legoSet $legoSet)
     {
         //
+    }
+
+    /**
+     * Add set to collection.
+     */
+    public function add(legoSet $set)
+    {
+        $user = auth()->user();
+        $collection = $user->with('collection')->find($user->id);
+        $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
+            ->where('id', '!=', $set->id) // So you won't fetch same post
+            ->inRandomOrder()->paginate(3);
+        if ($set->collections->contains($collection->id)) {
+            return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+                ->with('error', "'$set->name' is already in your collection.");
+        }
+        $set->collections()->attach($collection->id);
+        return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+            ->with('success', "Added '$set->name' to your collection successfully.");
+    }
+
+    /**
+     * Add set to Wishlist.
+     */
+    public function addWishtlist(legoSet $set, Request $request)
+    {
+        $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
+            ->where('id', '!=', $set->id) // So you won't fetch same post
+            ->inRandomOrder()->paginate(3);
+
+        $wishlistID = $request->oneWishlist;
+
+        if (Wishlist::find($wishlistID)->sets()->where('lego_set_id', $set->id)->exists()) {
+            return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+                ->with('error', "'$set->name' is already in your wishlist.");
+        }
+
+        Wishlist::find($wishlistID)->sets()->attach($set->id);
+
+        return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+            ->with('success', "Added '$set->name' to your wishlist successfully.");
     }
 }
