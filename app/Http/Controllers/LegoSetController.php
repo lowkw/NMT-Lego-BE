@@ -28,8 +28,13 @@ class LegoSetController extends Controller
     public function index()
     {
         //return view('welcome');
+        $user = auth()->user() ?? null;
         $legoSets = legoSet::orderBy('id', 'DESC')->paginate(12);
-        return view('legoSets.index', compact(['legoSets',]));
+        $userWishlists = collect();
+        if (!$user == null) {
+            $userWishlists = Wishlist::where('user_id', '=', $user->id)->get();
+        }
+        return view('legoSets.index', compact(['legoSets', 'userWishlists']));
         //
         //return view('legoSets.lego-set');
     }
@@ -43,7 +48,7 @@ class LegoSetController extends Controller
     {
         $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
             ->where('id', '!=', $set->id) // So you won't fetch same post
-            ->inRandomOrder()->paginate(3);;
+            ->inRandomOrder()->paginate(3);
         $user = auth()->user() ?? null;
         $userWishlists = collect();
         if (!$user == null) {

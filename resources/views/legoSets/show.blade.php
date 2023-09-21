@@ -21,7 +21,7 @@
             @endif
             <hr class="w-50">
             <div class="row justify-content-start">
-                <div class="col-md-auto">
+                <div class="flex col-md-auto">
                     <form action="{{ route('set.add', compact('set')) }}" method="post">
                         @csrf
                         <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to your Collection"
@@ -29,7 +29,8 @@
                             <i class="add-icon fa-solid fa-plus"></i>
                         </button>
                     </form>
-                    <button id="btnAddtoWishlist" class="px-3 py-1 rounded text-white show-modalss" onclick="tailwindModalToggle()">
+                    <button id="btnAddtoWishlist" class="px-3 rounded text-white show-modalss" onclick="tailwindModalToggle()"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to a Wishlist">
                         <i class="fa-solid fa-heart-circle-plus" style="color: #159bce;font-size: 3rem;"></i>
                     </button>
                     <div id="loading" class="pt-5" style="display: none;">
@@ -39,26 +40,6 @@
                         </div>
                         &emsp; Submitting . . . .
                     </div>
-                </div>
-                <div class="col-md-auto">
-                    @if(!count($userWishlists)==0)
-                        <form action="{{ route('set.addWishlist', compact(['set'])) }}" method="post">
-                            @csrf
-                            <label for="Wishlist" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                   title="Add to your Wishlist" class="add-icon fa-solid fa-heart"></label>
-                            <select class="form-control m-bot15" id="Wishlist" name="oneWishlist">
-                                @foreach($userWishlists as $oneWishlist)
-                                    <option value="{{ $oneWishlist->id }}" @selected($oneWishlist->name)>
-                                        {{ $oneWishlist->name }}
-                                    </option>
-                                @endForeach
-                            </select>
-                            <button type="submit"
-                                    class="btn btn-primary">
-                                {{ __("Add") }}
-                            </button>
-                        </form>
-                    @endif
                 </div>
             </div>
         </div>
@@ -80,7 +61,7 @@
                             </p><h3 class="text-center">{{ $legoSet->name }}</h3>
                             <p class="text-center">{{ $legoSet->set_num }} | {{ $legoSet->theme->name }}</p>
                             <div class="d-grid gap-2 col-6 mx-auto">
-                                <a role="button" href="{{ route('sets.show', ['set'=>'legoSet']) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
+                                <a role="button" href="{{ route('sets.show', ['set'=> $legoSet]) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
                             </div>
                             <p></p>
                         </div>
@@ -91,7 +72,7 @@
 
             <!--Modal-->
             <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full" style="background: rgba(128, 128, 128, 0.7);">
-                <div class="relative w-full max-h-full" style="padding-left: 25%; padding-right: 25%; padding-top:5%;">
+                <div class="relative w-full max-h-full" style="padding-top:5%;">
                     <!-- Modal content -->
                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 mt-5">
                         <!-- Modal header -->
@@ -109,17 +90,16 @@
                         </div>
                         <!-- Modal body -->
                         <div class="p-6 space-y-6">
-                            <div class="row justify-content-md-center">
+                            <div class="row justify-content-center">
 
-                            @foreach($userWishlist as $wishlist)
+                            @foreach($userWishlists as $wishlist)
                                 <div class="col-10 col-sm-6 col-lg-4 mb-4">
-                                    <form action="{{ route('sets.store') }}" class="my-formss flex flex-col gap-4 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg
-                                                                         text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" method="post">
+                                    <form action="{{ route('sets.store') }}" class="w-100" method="post">
                                         @csrf
                                         <p>
                                             <input type="hidden" name="wishlist_id" value="{{ $wishlist->id }}"/>
                                             <input type="hidden" name="set_id" value="{{ $set->id }}"/>
-                                            <button type="submit" class="btnSubmitss text-white mt-2 ml-5 justify-content-center" onclick="showLoading()">{{ $wishlist->name }}</button>
+                                            <button type="submit" class="btn btn-primary w-100 text-white p-4 justify-content-center" onclick="showLoading()">{{ $wishlist->name }}</button>
                                         </p>
                                     </form>
 
@@ -136,7 +116,6 @@
                 </div>
             </div>
             <!--End Modal-->
-
 
         </div>
     </div>

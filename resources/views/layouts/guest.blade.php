@@ -72,11 +72,16 @@
 </div>
 <script>
 
-function tailwindModalToggle(){
+function tailwindModalToggle(setId){
     //const modalButton = document.querySelector("[data-modal-toggle='small-modal']");
     const modal = document.querySelector("#defaultModal");
     modal.style.display = 'block';
-
+    if(setId){
+        setIdInputs = document.querySelectorAll('input[name="set_id"]');
+        setIdInputs.forEach(el => {
+            el.value = setId;
+        });
+    }
 }
 
 function closeTailwindModalToggle() {

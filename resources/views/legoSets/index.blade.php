@@ -110,7 +110,7 @@
                             <!--Buttons-->
                             <div class="flex space-x-4 justify-center mt-4">
                                 <div class="py-2">
-                                    <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
+                                    <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm m-0">View Set -&gt;</a>
                                 </div>
                                 <form action="{{ route('set.add', compact('set')) }}" method="post">
                                     @csrf
@@ -118,6 +118,10 @@
                                         <i class="add-icon fa-solid fa-plus"></i>
                                     </button>
                                 </form>
+                                <button id="btnAddtoWishlist" class="rounded text-white show-modalss" onclick="tailwindModalToggle({{ $set->id }})"
+                                     data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add to a Wishlist">
+                                    <i class="fa-solid fa-heart-circle-plus" style="color: #159bce;font-size: 3rem;"></i>
+                                </button>
                             </div>
                             <p></p>
                         </div>
@@ -138,5 +142,51 @@
             </div>
         </div>
     </div>
+    <!--Modal-->
+    <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full" style="background: rgba(128, 128, 128, 0.7);">
+                <div class="relative w-full max-h-full" style="padding-top:5%;">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 mt-5">
+                        <!-- Modal header -->
+                        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                Wish List
+                            </h3>
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-hide="defaultModal" onclick="closeTailwindModalToggle()">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-6 space-y-6">
+                            <div class="row justify-content-center">
+
+                            @foreach($userWishlists as $wishlist)
+                                <div class="col-10 col-sm-6 col-lg-4 mb-4">
+                                    <form action="{{ route('sets.store') }}" class="w-100" method="post">
+                                        @csrf
+                                        <p>
+                                            <input type="hidden" name="wishlist_id" value="{{ $wishlist->id }}"/>
+                                            <input type="hidden" name="set_id" value="{{ $set->id }}"/>
+                                            <button type="submit" class="btn btn-primary w-100 text-white p-4 justify-content-center" onclick="showLoading()">{{ $wishlist->name }}</button>
+                                        </p>
+                                    </form>
+
+                                </div>
+                            @endforeach
+                            </div>
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="flex items-center justify-content-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <button data-modal-hide="defaultModal" type="button" class="p-2 text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" onclick="closeTailwindModalToggle()">Cancel</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Modal-->
 <!---------End Sets list----------->
 </x-guest-layout>
