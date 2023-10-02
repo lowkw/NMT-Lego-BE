@@ -120,6 +120,28 @@ class LegoSetController extends Controller
     }
 
     /**
+     * Delete set from Wishlist.
+     */
+    public function deleteWishlist(legoSet $set, Request $request)
+    {
+        $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
+            ->where('id', '!=', $set->id) // So you won't fetch same post
+            ->inRandomOrder()->paginate(3);
+
+        $wishlistID = $request->oneWishlist;
+
+        if (Wishlist::find($wishlistID)->sets()->where('lego_set_id', $set->id)->doesntExist()) {
+            return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+                ->with('error', "'$set->name' is not in your wishlist.");
+        }
+
+        Wishlist::find($wishlistID)->sets()->detach($set->id);
+
+        return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+            ->with('success', "Deleted '$set->name' from your wishlist successfully.");
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(legoSet $legoSet)
@@ -149,7 +171,7 @@ class LegoSetController extends Controller
     /**
      * Add set to Wishlist.
      */
-    public function addWishtlist(legoSet $set, Request $request)
+    public function addWishlist(legoSet $set, Request $request)
     {
         $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
             ->where('id', '!=', $set->id) // So you won't fetch same post
