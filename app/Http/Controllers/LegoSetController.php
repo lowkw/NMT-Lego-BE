@@ -124,20 +124,17 @@ class LegoSetController extends Controller
      */
     public function deleteWishlist(legoSet $set, Request $request)
     {
-        $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
-            ->where('id', '!=', $set->id) // So you won't fetch same post
-            ->inRandomOrder()->paginate(3);
-
         $wishlistID = $request->oneWishlist;
+        $wishlist = Wishlist::find($wishlistID);
 
         if (Wishlist::find($wishlistID)->sets()->where('lego_set_id', $set->id)->doesntExist()) {
-            return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+            return redirect()->route('wishlist.show', compact('wishlist'))
                 ->with('error', "'$set->name' is not in your wishlist.");
         }
 
         Wishlist::find($wishlistID)->sets()->detach($set->id);
 
-        return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+        return redirect()->route('wishlist.show', compact('wishlist'))
             ->with('success', "Deleted '$set->name' from your wishlist successfully.");
     }
 
