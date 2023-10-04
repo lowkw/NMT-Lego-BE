@@ -173,15 +173,13 @@ class LegoSetController extends Controller
         $user = auth()->user();
 
         $collection = $user->with('collection')->find($user->id);
-        $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
-            ->where('id', '!=', $set->id) // So you won't fetch same post
-            ->inRandomOrder()->paginate(3);
-        if ($set->collections->contains($collection->id)) {
-            return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+
+        if (!$set->collections->contains($collection->id)) {
+            return redirect()->route('legoCollection.index'(['set']))
                 ->with('error', "'$set->name' is not in your collection.");
         }
         $set->collections()->detach($collection->id);
-        return redirect()->route('sets.show', compact(['set', 'relatedSets']))
+        return redirect()->route('legoCollection.index', compact(['set']))
             ->with('success', "Removed '$set->name' from your collection successfully.");
     }
 }
