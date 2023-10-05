@@ -565,6 +565,11 @@ input[type="range"] {
   border-radius: 3px;
 }
 
+.remove-icon {
+  color: var(--color-tertiary);
+  font-size: 2em;
+}
+
 @media (max-width: 768px) {
   .half-bg {
     width: 100%;

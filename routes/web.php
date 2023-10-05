@@ -26,6 +26,7 @@ Route::resource('sets', LegoSetController::class);
 Route::post('/set/add/{set}',  [LegoSetController::class, 'add'])->name('set.add');
 Route::post('/set/add/wishlist/{set}',  [LegoSetController::class, 'addWishlist'])->name('set.addWishlist');
 Route::get('/set/remove/wishlist/{set}',  [LegoSetController::class, 'deleteWishlist'])->name('set.deleteWishlist');
+Route::get('/set/remove/{set}',  [LegoSetController::class, 'removeCollection'])->name('set.removeCollection');
 Route::get('/collection',  [CollectionController::class, 'index'])->name('legoCollection.index');
 
 Route::get('/wishlist/index', [WishlistController::class,'index'])->name('index');
