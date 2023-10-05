@@ -179,7 +179,7 @@ class LegoSetController extends Controller
                 ->with('error', "'$set->name' is not in your collection.");
         }
         $set->collections()->detach($collection->id);
-        return redirect()->route('legoCollection.index', compact(['set']))
+        return redirect()->route('legoCollection.index')
             ->with('success', "Removed '$set->name' from your collection successfully.");
     }
 }
