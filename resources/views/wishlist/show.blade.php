@@ -114,10 +114,10 @@
                                 <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
                                 <form action="{{ route('set.deleteWishlist',compact(['set'])) }}"
                                       class="flex flex-col gap-4"
-                                      method="GET">
+                                      method="POST">
                                     @csrf
                                 <button type="submit" role="button" class="btn btn-danger btn-sm">
-                                    Remove <i class="remove-icon fa-solid fa-square-minus"></i>
+                                    Remove <i class="fa fa-solid fa-square-minus"></i>
                                 </button>
                                     <input type="hidden" name="oneWishlist" value="{{$wishlist->id}}" />
                                 </form>

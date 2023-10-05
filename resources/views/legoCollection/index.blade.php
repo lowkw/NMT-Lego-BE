@@ -113,12 +113,12 @@
                             <!--Buttons-->
                             <div class="flex space-x-4 justify-center align-items-center mt-4">
                                 <div class="py-2">
-                                    <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm m-0">View Set -&gt;</a>
+                                    <a role="button" href="{{ route('sets.show', compact('set')) }}" class="btn btn-primary btn-sm">View Set -&gt;</a>
                                 </div>
                                 <form action="{{ route('set.removeCollection', compact('set')) }}" method="post">
                                     @csrf
-                                    <button data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove from your Collection" type="submit">
-                                    <i class="remove-icon fa-solid fa-square-minus"></i>
+                                    <button type="submit" role="button" class="btn btn-danger btn-sm">
+                                        Remove <i class="fa fa-solid fa-square-minus"></i>
                                     </button>
                                 </form>
                             </div>

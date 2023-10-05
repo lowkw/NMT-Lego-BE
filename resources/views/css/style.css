@@ -126,7 +126,7 @@ cite span {
   transition: var(--transition-dur);
   margin-bottom: 20px;
   font-weight: bold;
-  min-width: 150px;
+  min-width: 125px;
   gap:20px;
 }
 
