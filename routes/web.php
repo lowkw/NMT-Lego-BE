@@ -5,6 +5,7 @@ use App\Http\Controllers\LegoSetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
+use App\Models\legoSet;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $legoSets = legoSet::orderBy('id', 'DESC')->paginate(6);
+    return view('welcome', compact(['legoSets']));
+})->name('home');
 //Route::get('/sets', [LegoSetController::class, 'index'])->name('sets');
 //Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show');
 Route::resource('sets', LegoSetController::class);
