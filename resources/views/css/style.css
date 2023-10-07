@@ -150,6 +150,25 @@ cite span {
   background-color: var(--color-dark);
 }
 
+/* Register */
+.register-form-input {
+    font-size: 1rem;
+    padding: 8px 5px;
+    border-radius: 5px;
+}
+.register-banner {
+    padding: 200px 0;
+    background: url('../images/register-banner.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.register-input-font{
+    font-size: 1.2rem;
+    color:lightyellow;
+}
+
 /* Forms */
 
 input[type="text"] {
