@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LegoSetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
@@ -35,6 +36,10 @@ Route::get('/wishlist/index', [WishlistController::class,'index'])->name('index'
 Route::resource('wishlist', WishlistController::class);
 Route::get('/wishlist/{id}/remove', [WishlistController::class, 'destroy'])
     ->name('wishlistRemove');
+
+//Contact Page
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
