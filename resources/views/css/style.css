@@ -33,8 +33,11 @@ body {
   line-height: 1.5;
 }
 p {
-  color: #000;
   font-weight: 400;
+}
+
+p.heading-text {
+  color: #FFFFFF;
 }
 
 em {
@@ -46,6 +49,13 @@ a {
   transition: var(--transition-dur);
   color: var(--color-primary);
 }
+
+footer a {
+  text-decoration: none;
+  transition: var(--transition-dur);
+  color: #373737;
+}
+
 a:hover {
   color: var(--color-dark);
 }
@@ -127,6 +137,7 @@ cite span {
   margin-bottom: 20px;
   font-weight: bold;
   min-width: 125px;
+  max-width: 150px;
   gap:20px;
 }
 
@@ -173,6 +184,10 @@ ul#menu-primary-menu {
   color: #B33F62;
 }
 
+#profile-navigation {
+  background-color: var(--color-primary);
+}
+
 .blog-title {
   margin: 0px;
 }
@@ -201,6 +216,14 @@ ul#menu-primary-menu {
     backdrop-filter: blur(5px);
     background-color: #0000002b;
     max-width: 100%;
+}
+
+.home-title-banner {
+  padding: 200px 0;
+  background: url('../images/home-banner.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 /* Subscribe Bar */
@@ -447,6 +470,7 @@ article.post {
 }
 
 input[type=range]::-webkit-slider-thumb {
+  appearance: none;
   -webkit-appearance: none;
   pointer-events: all;
   width: 15px;
@@ -458,6 +482,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 input[type=range]::-moz-range-thumb {
+  appearance: none;
   -webkit-appearance: none;
   pointer-events: all;
   width: 24px;
@@ -568,6 +593,10 @@ input[type="range"] {
 .remove-icon {
   color: var(--color-tertiary);
   font-size: 2em;
+}
+
+.job-color {
+  color: var(--color-primary);
 }
 
 @media (max-width: 768px) {
