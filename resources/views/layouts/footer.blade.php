@@ -17,7 +17,7 @@
                     <ul class="max-w-md space-y-1 text-gray-800 list-none list-inside dark:text-gray-400 pl-0">
                         <li class="pb-2 pb-md-1"><a href="{{route('home')}}" class="text-decoration-none">Home</a></li>
                         <li class="pb-2 pb-md-1"><a href="{{route('sets.index')}}" class="text-decoration-none">Sets</a></li>
-                        <li class="pb-2 pb-md-1"><a href="" class="text-decoration-none">Contact</a></li>
+                        <li class="pb-2 pb-md-1"><a href="{{route('contact.index')}}" class="text-decoration-none">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-2">

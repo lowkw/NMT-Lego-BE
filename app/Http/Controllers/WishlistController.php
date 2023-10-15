@@ -14,7 +14,9 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        $wishlists = Wishlist::query()->paginate(10);
+        //$wishlists = Wishlist::query()->paginate(10);
+        $user = auth()->user();
+        $wishlists = Wishlist::where('user_id', $user->id)->paginate(10);
         return view('wishlist.index', compact(['wishlists']));
     }
 

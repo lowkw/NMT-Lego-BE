@@ -26,6 +26,12 @@ Route::get('/', function () {
 //Route::get('/sets', [LegoSetController::class, 'index'])->name('sets');
 //Route::get('/sets/{set}', [LegoSetController::class, 'show'])->name('sets.show');
 Route::resource('sets', LegoSetController::class);
+
+/*
+|--------------------------------------------------------------------------
+| Move the following routes to middleware
+|--------------------------------------------------------------------------
+|
 Route::post('/set/add/{set}',  [LegoSetController::class, 'add'])->name('set.add');
 Route::post('/set/add/wishlist/{set}',  [LegoSetController::class, 'addWishlist'])->name('set.addWishlist');
 Route::post('/set/remove/wishlist/{set}',  [LegoSetController::class, 'deleteWishlist'])->name('set.deleteWishlist');
@@ -36,6 +42,7 @@ Route::get('/wishlist/index', [WishlistController::class,'index'])->name('index'
 Route::resource('wishlist', WishlistController::class);
 Route::get('/wishlist/{id}/remove', [WishlistController::class, 'destroy'])
     ->name('wishlistRemove');
+*/
 
 //Contact Page
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
@@ -49,6 +56,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::post('/set/add/{set}',  [LegoSetController::class, 'add'])->name('set.add');
+    Route::post('/set/add/wishlist/{set}',  [LegoSetController::class, 'addWishlist'])->name('set.addWishlist');
+    Route::post('/set/remove/wishlist/{set}',  [LegoSetController::class, 'deleteWishlist'])->name('set.deleteWishlist');
+    Route::post('/set/remove/{set}',  [LegoSetController::class, 'removeCollection'])->name('set.removeCollection');
+
+    Route::get('/collection',  [CollectionController::class, 'index'])->name('legoCollection.index');
+
+    Route::get('/wishlist/index', [WishlistController::class,'index'])->name('index');
+    Route::resource('wishlist', WishlistController::class);
+    Route::get('/wishlist/{id}/remove', [WishlistController::class, 'destroy'])
+        ->name('wishlistRemove');
 });
 
 require __DIR__.'/auth.php';
