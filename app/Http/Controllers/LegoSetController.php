@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatelegoSetRequest;
 use App\Models\legoSet;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use App\Models\themes;
 
 class LegoSetController extends Controller
 {
@@ -25,18 +26,59 @@ class LegoSetController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        //return view('welcome');
         $user = auth()->user() ?? null;
-        $legoSets = legoSet::orderBy('id', 'DESC')->paginate(12);
+        $query = legoSet::query();
+        $sortBy = "DESC";
+
+        //Filter date by "created_at"
+        $getSortBy = $request->input('sortBy');
+        if ($getSortBy == "OLD"){
+            $sortBy = "ASC";
+        }
+
+        // If none of the filters are applied, return all records
+        if (
+            !$request->has('keywords')  &&
+            !$request->has('theme')  &&
+            !$request->has('year')  &&
+            !$request->has('fromParts') &&
+            !$request->has('toParts')
+        ){
+            $legoSets = legoSet::query()->orderBy('created_at', $sortBy)->paginate(12);
+        }else {
+            //Filter Keywords
+            if ($request->has('keywords') && $request->input('keywords') !== "") {
+                $query->where('name', 'like', '%' . $request->input('keywords') . '%');
+            }
+            //Filter Theme
+            if ($request->has('theme') && $request->input('theme') !== "0") {
+                $query->where('theme_id', '=', $request->input('theme'));
+            }
+            //Filter Year
+            if ($request->has('year') && $request->input('year') !== "0") {
+                $query->where('year', '=', $request->input('year'));
+            }
+            //Filter Number of parts
+            if ($request->input('fromParts') !== "0" && $request->input('toParts') !== "0") {
+                $minNumParts = $request->input('fromParts');
+                $maxNumParts = $request->input('toParts');
+                $query->whereBetween('num_parts', [$minNumParts, $maxNumParts])->get();
+            }
+            $legoSets = $query->orderBy('created_at', $sortBy)->paginate(12);
+        }
+
         $userWishlists = collect();
         if (!$user == null) {
             $userWishlists = Wishlist::where('user_id', '=', $user->id)->get();
         }
-        return view('legoSets.index', compact(['legoSets', 'userWishlists']));
-        //
-        //return view('legoSets.lego-set');
+
+        //Get all themes
+        $themeList = themes::all()->sortBy('name');
+        //Get all years
+        $yearList = legoSet::select('year')->orderBy('year',"DESC")->distinct()->get();
+        return view('legoSets.index', compact(['legoSets', 'userWishlists','themeList','yearList']));
     }
 
     /**
@@ -54,7 +96,6 @@ class LegoSetController extends Controller
         if (!$user == null) {
             $userWishlists = Wishlist::where('user_id', '=', $user->id)->get();
         }
-
         return view('legoSets.show', compact(['set', 'relatedSets', 'userWishlists']));
     }
 
