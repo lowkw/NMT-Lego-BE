@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorelegoSetRequest;
 use App\Http\Requests\UpdatelegoSetRequest;
+use App\Models\Collection;
 use App\Models\legoSet;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
@@ -152,7 +153,7 @@ class LegoSetController extends Controller
     public function add(legoSet $set)
     {
         $user = auth()->user();
-        $collection = $user->with('collection')->find($user->id);
+        $collection = Collection::where('user_id', '=', $user->id)->first();
         $relatedSets = legoSet::where('theme_id', '=', $set->theme_id)
             ->where('id', '!=', $set->id) // So you won't fetch same post
             ->inRandomOrder()->paginate(3);
@@ -160,6 +161,7 @@ class LegoSetController extends Controller
             return redirect()->route('sets.show', compact(['set', 'relatedSets']))
                 ->with('error', "'$set->name' is already in your collection.");
         }
+
         $set->collections()->attach($collection->id);
         return redirect()->route('sets.show', compact(['set', 'relatedSets']))
             ->with('success', "Added '$set->name' to your collection successfully.");

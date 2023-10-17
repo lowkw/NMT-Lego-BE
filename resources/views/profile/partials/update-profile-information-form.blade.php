@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -45,6 +45,27 @@
                     @endif
                 </div>
             @endif
+        </div>
+        <div>
+            <x-input-label for="bio" :value="__('Bio')" />
+            <textarea id="bio" name="bio" type="text" class="form-control mt-1 block w-full shadow-gray-500/20" autofocus autocomplete="bio">{{old('bio', $user->bio)}}</textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('bio')" />
+        </div>
+
+        <div class="mb-3">
+            <label for="avatar" class="col-md-4 col-form-label">{{ __('Avatar') }}</label>
+
+            <div class="col-md-6">
+                <input id="avatar" type="file" class="form-control @error('avatar') is-invalid @enderror" name="avatar" value="{{ old('avatar') }}" autocomplete="avatar">
+                @if (Auth::user()->avatar)
+                <img src="/avatars/{{ Auth::user()->avatar }}" style="width:80px;margin-top: 10px;">
+                @endif
+                @error('avatar')
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                @enderror
+            </div>
         </div>
 
         <div class="flex items-center gap-4">
