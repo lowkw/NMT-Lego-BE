@@ -5,6 +5,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LegoSetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WishlistController;
+use App\Models\Collection;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Route;
 use App\Models\legoSet;
 
@@ -42,7 +44,11 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = auth()->user();
+    $legoCollection = Collection::where('user_id', $user->id)->with('sets')->first();
+    $userWishlists = Wishlist::where('user_id', $user->id)->get();
+    $userlegoSets = $legoCollection->sets()->orderBy('id', 'DESC')->paginate(3);;
+    return view('dashboard', compact(['userlegoSets', 'userWishlists']));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
