@@ -73,10 +73,19 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/collection',  [CollectionController::class, 'index'])->name('legoCollection.index');
 
-    Route::get('/wishlist/index', [WishlistController::class,'index'])->name('index');
-    Route::resource('wishlist', WishlistController::class);
+    Route::get('/wishlist', [WishlistController::class,'index'])->name('wishlist.index');
+    Route::get('/wishlist/create', [WishlistController::class,'create'])->name('wishlist.create');
+    Route::get('/wishlist/edit/{wishlist}', [WishlistController::class,'edit'])->name('wishlist.edit');
+    Route::post('/wishlist/store', [WishlistController::class,'store'])->name('wishlist.store');
+    Route::put('/wishlist/update', [WishlistController::class,'update'])->name('wishlist.update');
+    //Route::resource('wishlist', WishlistController::class);
     Route::get('/wishlist/{id}/remove', [WishlistController::class, 'destroy'])
         ->name('wishlistRemove');
 });
+
+Route::get('/wishlist/{wishlist}', [WishlistController::class,'show'])->name('wishlist.show');
+Route::get('/unauthorized', function () {
+    return view('401');
+})->name('unauthorized');
 
 require __DIR__.'/auth.php';

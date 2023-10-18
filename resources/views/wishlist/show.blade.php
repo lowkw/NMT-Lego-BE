@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-10 offset-md-1 col-sm-12 offset-sm-0 overflow-hidden text-center">
-                    <h1 class="page-title" style="color:white;">Items in {{ Auth::user()->name }}'s {{$wishlist->name}}</h1>
+                    <h1 class="page-title" style="color:white;">Items in {{$wishlist->name}}</h1>
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@
             </div>
         @endif
 
-        <form action="{{ route('wishlist.update',compact(['wishlist'])) }}"
+        <form action="{{ route('wishlist.update') }}"
               class="flex flex-col gap-4"
               method="post">
 
@@ -26,7 +26,7 @@
             @method('put')
             <div class="mb-3">
                 <label for="name" class="form-label"><b>Name</b></label>
-                <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" value="{{ old("name") ?? $wishlist->name }}">
+                <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp" value="{{ old('name') ?? $wishlist->name }}">
                 <div id="nameHelp" class="form-text">Name it something descriptive like "My Birthday wishlist"</div>
                 @error('name')
                 <p class="text-red-800 mb-2 text-sm">
@@ -39,6 +39,7 @@
                 <input type="checkbox" class="form-check-input" role="switch" id="public" name="public"
                        {{ $wishlist->public == 0 ? "" : "checked" }} />
             </div>
+            <input type="hidden" name="wishlistId" value="{{$wishlist->id}}">
             <div class="">
 
                 <div class="mt-6 flex flex-row gap-4">

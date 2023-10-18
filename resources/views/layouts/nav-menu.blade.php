@@ -20,8 +20,11 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')" class="text-decoration-none">
+                            <x-dropdown-link :href="route('dashboard')" class="text-decoration-none">
                                 {{ __('Profile') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('profile.edit')" class="text-decoration-none">
+                                {{ __('Settings') }}
                             </x-dropdown-link>
 
                             <!-- Authentication -->

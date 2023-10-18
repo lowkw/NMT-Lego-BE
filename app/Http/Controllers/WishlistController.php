@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreWishlistRequest;
 use App\Http\Requests\UpdateWishlistRequest;
+use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
@@ -60,10 +62,10 @@ class WishlistController extends Controller
      */
     public function show(Wishlist $wishlist)
     {
-        $user = auth()->user();
-
-        $userWishlist = Wishlist::where('user_id', $user->id)->where('id',$wishlist->getKey())->with('sets')->first();
-        $userlegoSets = $userWishlist->sets()->orderBy('id', 'DESC')->paginate(12);;
+        if (!Auth::check() && !$wishlist->public) {
+            return redirect()->route('unauthorized');
+        }
+        $userlegoSets = $wishlist->sets()->orderBy('id', 'DESC')->paginate(12);
         return view('wishlist.show', compact(['wishlist','userlegoSets']));
     }
 
@@ -84,7 +86,7 @@ class WishlistController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateWishlistRequest $request, Wishlist $wishlist)
+    public function update(UpdateWishlistRequest $request)
     {
 
         // Use the update method to update the model and save it to the database
@@ -97,14 +99,14 @@ class WishlistController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'public' => 'boolean'
+            'public' => 'boolean',
+            'wishlistId' => 'numeric|max:10',
         ]);
-
+        $wishlist = Wishlist::where('id', $request['wishlistId'])->first();
         $wishlist->update([
             'name' => $validated['name'],
             'public' => $validated['public'],
         ]);
-
         return redirect()->route('wishlist.index')
             ->with('success', $wishlist->name.' updated successfully.');
     }
