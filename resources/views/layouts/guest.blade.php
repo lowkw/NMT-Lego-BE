@@ -72,6 +72,20 @@ function showLoading() {
     btnAddtoWishlist.disabled = true;
 }
 
+function clearAllSearchInput(){
+    //keywords
+    document.getElementById('keywords').value = "";
+    //Theme
+    document.getElementById('legoTheme').selectedIndex = 0;
+    //Year
+    document.getElementById('legoYear').selectedIndex = 0;
+
+    //Range slider
+    document.getElementById('fromSlider').value = 0;
+    document.getElementById('toSlider').value = 0;
+    document.getElementById('fromInput').value = 0;
+    document.getElementById('toInput').value = 0;
+}
 
 </script>
 </body>

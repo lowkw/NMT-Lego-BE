@@ -8,16 +8,19 @@
     </div>
 </section>
 <div class="container pt-4">
-    <div class="row row-cols-2 row-cols-lg-3">
+    <form class="" method="get" action="{{ route('sets.index')}}">
+        @csrf
+    <div class="row row-cols-2 row-cols-lg-3 pb-6">
+
         <!--Theme-->
         <div class="col-4 col-lg-2">
-            Theme
+            <b>Theme</b>
             <div class="input-group mb-3">
-                <select class="form-select" id="inputGroupSelect02">
-                    <option>Star Wars</option>
-                    <option>Harry Potter</option>
-                    <option>Marvel</option>
-                    <option>Warner Bros</option>
+                <select class="form-select" id="legoTheme" name="theme">
+                    <option value="0">Select theme</option>
+                    @foreach($themeList as $theme)
+                        <option value="{{$theme->id}}" {{ old('theme', request('theme')) == $theme->id ? 'selected' : '' }}>{{$theme->name}}</option>
+                    @endforeach
                 </select>
 
             </div>
@@ -26,11 +29,13 @@
 
         <!--Year-->
         <div class="col-4 col-lg-1">
-            Year
+            <b>Year</b>
             <div class="input-group mb-3">
-                <select class="form-select" id="inputGroupSelect02">
-                    <option selected="">Year</option>
-                    <option value="2023">2023</option><option value="2022">2022</option><option value="2021">2021</option><option value="2020">2020</option><option value="2019">2019</option><option value="2018">2018</option><option value="2017">2017</option><option value="2016">2016</option><option value="2015">2015</option><option value="2014">2014</option><option value="2013">2013</option><option value="2012">2012</option><option value="2011">2011</option><option value="2010">2010</option><option value="2009">2009</option><option value="2008">2008</option>
+                <select class="form-select" id="legoYear" name="year">
+                    <option value="0">Year</option>
+                    @foreach($yearList as $year)
+                        <option value="{{$year->year}}" {{ old('year', request('year')) == $year->year ? 'selected' : '' }}>{{$year->year}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -38,63 +43,84 @@
 
         <!--Range Slider-->
         <div class="col-4 col-lg-3">
-            Number of parts
-            <div class="range_container">
+            <b>Number of parts</b>
+            <div class="range_container mt-2 mb-0">
                 <div class="sliders_control">
                     <div class="row">
-                        <div class="col-12 col-lg-12">
-                            <input id="fromSlider" type="range" value="100" min="0" max="700">
-                            <input id="toSlider" type="range" value="300" min="0" max="700" style="background: linear-gradient(to right, rgb(198, 198, 198) 0%, rgb(198, 198, 198) 14.2857%, rgb(37, 218, 165) 14.2857%, rgb(37, 218, 165) 42.8571%, rgb(198, 198, 198) 42.8571%, rgb(198, 198, 198) 100%); z-index: 0;">
+                        <div class="col-12 col-lg-12">{{ old('keywords', request('keywords'))}}
+                            <input id="fromSlider" type="range" value="{{ old('fromParts',request('fromParts')) !== null ? old('fromParts', request('fromParts')) : '0' }}" min="0" max="2000">
+                            <input class="to-slider" id="toSlider" type="range" value="{{ old('toParts', request('toParts')) !== null ? old('toParts', request('toParts')) : '0' }}" min="0" max="2000">
                         </div>
                         <div class="col-4 col-lg-6">
-                            <input class="form_control_container__time__input" type="number" id="fromInput" value="100" min="0" max="700">
+                            <input class="form_control_container__time__input" name="fromParts" type="number" id="fromInput" value="{{ old('fromParts', request('fromParts')) !== null ? old('fromParts', request('fromParts')) : '0' }}" min="0" max="2000">
                         </div>
                         <div class="col-4 col-lg-3"></div>
                         <div class="col-4 col-lg-3">
-                            <input class="form_control_container__time__input" type="number" id="toInput" value="300" min="0" max="700">
+                            <input class="form_control_container__time__input" name="toParts" type="number" id="toInput" value="{{ old('toParts', request('toParts')) !== null ? old('toParts', request('toParts')) : '0' }}" min="0" max="2000">
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
+
         <!--End Range Slider-->
 
-        <!--Sort by-->
-        <div class="col-4 col-lg-2">
-            Sort by
-            <div class="input-group mb-3">
-                <select class="form-select" id="inputGroupSelect02">
-                    <option>Most recent</option>
-                    <option>Oldest</option>
-                    <option>Accending</option>
-                    <option>Decending</option>
-                </select>
+            <!--Sort by-->
+            <div class="col-4 col-lg-2">
+                <b>Sort by</b>
+                <div class="input-group mb-3">
+                    <select class="form-select" id="inputGroupSelect02" name="sortBy">
+                        <option value="MSR">Most recent</option>
+                        <option value="OLD">Oldest</option>
+                        <!--<option value="ASC">Accending</option>
+                        <option value="DSC">Decending</option>-->
+                    </select>
+                </div>
             </div>
-        </div>
-        <!--End Sort by-->
+            <!--End Sort by-->
 
+            <!--Search -->
+            <div class="col-4 col-lg-2">
+                <b>Keywords</b>
+                    <div class="input-group">
+                        <input type="text" class="for w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
+                               name="keywords" placeholder="search keywords" id="keywords"
+                               value="{{ old('keywords', request('keywords'))}}"
+                               aria-label="Recipient's username"
+                               aria-describedby="button-addon2">
+                    </div>
+            </div>
+            <!--End Search -->
         <!--Search -->
         <div class="col-4 col-lg-2">
-            <form class="" method="post" action="">
-                @csrf
-                <div class="input-group mb-3">
-                    Search
-                    <input type="text" class="for" name="keyWords" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <!--<button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>-->
-                </div>
-            </form>
+            <div class="input-group mt-4">
+                <button type="button" class="w-full h-10 px-6 text-blue-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-800"
+                        id="button-addon2" onclick="clearAllSearchInput()">
+                    <i class="fa-solid fa-eraser"></i>&emsp;Clear
+                </button>
+            </div>
+
         </div>
         <!--End Search -->
-
+        <div class="col-12 col-lg-12">
+            <button type="submit" class="w-full h-12 px-6 text-blue-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-800" id="button-addon2">
+                <i class="fas fa-search"></i>&emsp;Search
+            </button>
+        </div>
+        <br />
     </div>
+    </form>
 </div>
 
 <!---------Sets list----------->
 
     <div class="container">
         <div class="row justify-content-md-center">
-                <!--Sets-->
+            <!--Sets-->
+            @if (count($legoSets) === 0)
+                <p class="text-center text-gray-700 text-2xl font-bold pt-3">No record found</p>
+            @else
             @foreach($legoSets as $set)
                 <div class="col-12 col-sm-6 col-lg-4 mb-4">
                     <div class="card">
@@ -105,7 +131,8 @@
                             <p class="card-text">
 
                             </p><h3 class="text-center">{{ $set->name }}</h3>
-                            <p class="text-center">{{ $set->set_num }} | {{ $set->theme->name }}</p>
+                            <p class="text-center">{{ $set->set_num }} | {{ $set->theme->name }} </p>
+                            <p  class="text-center">Date: {{$set->created_at}} | Parts numbers: {{ $set->num_parts }}</p>
 
                             <!--Buttons-->
                             <div class="flex space-x-4 justify-center mt-4">
@@ -128,15 +155,16 @@
                     </div>
                 </div>
             @endforeach
+            @endif
                 <!--End Sets-->
-
 
             <!--Pagination-->
             <div class="col-12 col-md-12"></div>
             <div class="col text-center">
                 <nav aria-label="Page navigation example">
                     <div class="p-6">
-                        {{ $legoSets->onEachSide(0)->links() }}
+
+                        {{ $legoSets->onEachSide(0)->appends(['keywords' => request('keywords'), 'sortBy' => request('sortBy')])->links() }}
                     </div>
                 </nav>
             </div>
@@ -171,7 +199,7 @@
                                         <p>
                                             <input type="hidden" name="wishlist_id" value="{{ $wishlist->id }}"/>
                                             <input type="hidden" name="set_id" value="{{ $set->id }}"/>
-                                            <button type="submit" class="btn btn-primary w-100 text-white p-4 justify-content-center" onclick="showLoading()">{{ $wishlist->name }}</button>
+                                            <button type="submit" class="w-full h-10 px-6 text-blue-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-800" onclick="showLoading()">{{ $wishlist->name }}</button>
                                         </p>
                                     </form>
 
