@@ -132,7 +132,6 @@
 
                             </p><h3 class="text-center">{{ $set->name }}</h3>
                             <p class="text-center">{{ $set->set_num }} | {{ $set->theme->name }} </p>
-                            <p  class="text-center">Date: {{$set->created_at}} | Parts numbers: {{ $set->num_parts }}</p>
 
                             <!--Buttons-->
                             <div class="flex space-x-4 justify-center mt-4">
