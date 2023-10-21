@@ -8,7 +8,7 @@
     </div>
 </section>
 <div class="container pt-4">
-    <form class="" method="get" action="{{ route('sets.index')}}">
+    <form class="" method="get" action="{{ route('sets.index', ['keywords' => request('keywords'), 'sortBy' => request('sortBy')]) }}">
         @csrf
     <div class="row row-cols-2 row-cols-lg-3 pb-6">
 
@@ -47,15 +47,15 @@
             <div class="range_container mt-2 mb-0">
                 <div class="sliders_control">
                     <div class="row">
-                        <div class="col-12 col-lg-12">{{ old('keywords', request('keywords'))}}
+                        <div class="col-12 col-lg-12">
                             <input id="fromSlider" type="range" value="{{ old('fromParts',request('fromParts')) !== null ? old('fromParts', request('fromParts')) : '0' }}" min="0" max="2000">
                             <input class="to-slider" id="toSlider" type="range" value="{{ old('toParts', request('toParts')) !== null ? old('toParts', request('toParts')) : '0' }}" min="0" max="2000">
                         </div>
-                        <div class="col-4 col-lg-6">
+                        <div class="col-4 col-lg-6 mt-2">
                             <input class="form_control_container__time__input" name="fromParts" type="number" id="fromInput" value="{{ old('fromParts', request('fromParts')) !== null ? old('fromParts', request('fromParts')) : '0' }}" min="0" max="2000">
                         </div>
                         <div class="col-4 col-lg-3"></div>
-                        <div class="col-4 col-lg-3">
+                        <div class="col-4 col-lg-3 mt-2">
                             <input class="form_control_container__time__input" name="toParts" type="number" id="toInput" value="{{ old('toParts', request('toParts')) !== null ? old('toParts', request('toParts')) : '0' }}" min="0" max="2000">
                         </div>
                     </div>
@@ -162,8 +162,12 @@
             <div class="col text-center">
                 <nav aria-label="Page navigation example">
                     <div class="p-6">
-
-                        {{ $legoSets->onEachSide(0)->appends(['keywords' => request('keywords'), 'sortBy' => request('sortBy')])->links() }}
+                        {{ $legoSets->onEachSide(0)->appends(['keywords' => request('keywords'),
+                                                                'theme' => request('theme'),
+                                                                'sortBy' => request('sortBy'),
+                                                                'year'=>request('year'),
+                                                                'fromParts'=>request('fromParts'),
+                                                                'toParts'=>request('toParts'),] )->links() }}
                     </div>
                 </nav>
             </div>
@@ -190,20 +194,51 @@
                         <!-- Modal body -->
                         <div class="p-6 space-y-6">
                             <div class="row justify-content-center">
+                                @auth
+                                    @if ((count($userWishlists) === 0 || is_null($userWishlists)))
+                                            <p class="text-center text-gray-700 text-2xl font-bold pt-3">No wishlist found. Please create wishlist
+                                                <br /><br /><a href="/wishlist/create"><button type="button" class="btn btn-primary">Here</button></a>
+                                            </p>
+                                    @else
+                                        @if(count($legoSets) !== 0))
+                                            @foreach($userWishlists as $wishlist)
+                                                <div class="col-10 col-sm-6 col-lg-4 mb-4">
+                                                    <form action="{{ route('sets.store') }}" class="w-100" method="post">
+                                                        @csrf
+                                                        <p>
 
-                            @foreach($userWishlists as $wishlist)
-                                <div class="col-10 col-sm-6 col-lg-4 mb-4">
-                                    <form action="{{ route('sets.store') }}" class="w-100" method="post">
-                                        @csrf
-                                        <p>
-                                            <input type="hidden" name="wishlist_id" value="{{ $wishlist->id }}"/>
-                                            <input type="hidden" name="set_id" value="{{ $set->id }}"/>
-                                            <button type="submit" class="w-full h-10 px-6 text-blue-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-800" onclick="showLoading()">{{ $wishlist->name }}</button>
-                                        </p>
-                                    </form>
+                                                            <input type="hidden" name="wishlist_id" value="{{ $wishlist->id }}"/>
+                                                            <input type="hidden" name="set_id" value="{{ $set->id }}"/>
+                                                            <button type="submit" class="w-full h-10 text-blue-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-800" onclick="showLoading()">{{ $wishlist->name }}</button>
+                                                        </p>
+                                                    </form>
 
-                                </div>
-                            @endforeach
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    @endif
+                             @else
+                                        <div class="col-4"></div>
+                                        <div class="col-4">
+                                            <div class="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3" role="alert">
+                                                <svg class="fill-current w-4 h-4 mr-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                                                <p class="mb-0">Please log in to view your wish list.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4"></div>
+
+                                        <div class="col-12"><br /></div>
+
+                                        <div class="col-4"></div>
+                                        <div class="col-4">
+                                            <a href="/login">
+                                            <button type="button" class="w-full h-10 px-6 text-green-100 transition-colors duration-150 bg-green-500 rounded-lg focus:shadow-outline hover:bg-green-800"
+                                                    id="button-addon2" >
+                                                &emsp;Log in
+                                            </button></a>
+                                        </div>
+                                        <div class="col-4"></div>
+                             @endauth
                             </div>
                         </div>
                         <!-- Modal footer -->
