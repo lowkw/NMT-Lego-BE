@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StaticPageController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LegoSetController;
@@ -20,6 +21,8 @@ use App\Models\legoSet;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/privacy', [StaticPageController::class, 'privacy'])->name('privacy');
 
 Route::get('/', function () {
     $legoSets = legoSet::orderBy('id', 'DESC')->paginate(6);

@@ -75,6 +75,10 @@ class WishlistController extends Controller
     public function edit(Wishlist $wishlist)
     {
 
+        $user = auth()->user();
+        if ($wishlist->user_id !== $user->id) {
+            return redirect()->route('dashboard');
+        }
         //$wishlist = Wishlist::query()->find($id);
         //$legoCollection = Wishlist::with('sets')->first();
 
@@ -88,9 +92,9 @@ class WishlistController extends Controller
      */
     public function update(UpdateWishlistRequest $request)
     {
-
-        // Use the update method to update the model and save it to the database
-        //wishlist->update($validatedData);
+        $user = auth()->user();
+            // Use the update method to update the model and save it to the database
+            //wishlist->update($validatedData);
         if(isset($request['public'])) {
             $request['public'] = true;
         } else {
@@ -103,12 +107,14 @@ class WishlistController extends Controller
             'wishlistId' => 'numeric|max:10',
         ]);
         $wishlist = Wishlist::where('id', $request['wishlistId'])->first();
-        $wishlist->update([
-            'name' => $validated['name'],
-            'public' => $validated['public'],
-        ]);
-        return redirect()->route('wishlist.index')
-            ->with('success', $wishlist->name.' updated successfully.');
+        if ($wishlist->user_id === $user->id) {
+            $wishlist->update([
+                'name' => $validated['name'],
+                'public' => $validated['public'],
+            ]);
+            return redirect()->route('wishlist.index')
+                ->with('success', $wishlist->name.' updated successfully.');
+        }
     }
 
     /**
