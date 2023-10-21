@@ -8,7 +8,7 @@
                         <img src="{{ asset('/images/logo.png') }}" class="img-fluid" alt=""  width="270">
                     </div>
                     <ul class="max-w-md space-y-1 text-gray-800 list-none list-inside dark:text-gray-400 pl-0 ">
-                        <li class="pb-2 pb-md-1">Privacy Policy</li>
+                        <li class="pb-2 pb-md-1"><a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a></li>
                         <li class="pb-2 pb-md-1">Terms & Conditions</li>
                     </ul>
                 </div>
