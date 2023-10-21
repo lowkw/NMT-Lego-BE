@@ -42,5 +42,4 @@
         <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Changes to our Privacy Policy</h2>
         <p class="mb-3 text-gray-500 dark:text-gray-400">If we decide to change our privacy policy, we will post those changes on this page.</p>
     </div>
-    <!---------End Sets list----------->
 </x-guest-layout>
