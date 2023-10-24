@@ -14,6 +14,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/views/js/app.js',
                 'resources/views/css/style.css',
+                'resources/views/css/bootstrap.min.css',
             ],
             refresh: true,
         }),
