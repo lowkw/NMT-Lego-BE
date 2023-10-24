@@ -19,6 +19,7 @@ export default defineConfig({
                 'resources/views/css/style.css',
                 'resources/views/js/rangeSlider.js',
                 'resources/views/js/bootstrap.js',
+                'resources/views/js/bootstrap.bundle.js',
             ],
             refresh: true,
         }),
