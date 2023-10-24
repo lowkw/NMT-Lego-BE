@@ -9,7 +9,7 @@
                     </div>
                     <ul class="max-w-md space-y-1 text-gray-800 list-none list-inside dark:text-gray-400 pl-0 ">
                         <li class="pb-2 pb-md-1"><a href="{{route('privacy')}}" class="text-decoration-none">Privacy Policy</a></li>
-                        <li class="pb-2 pb-md-1">Terms & Conditions</li>
+                        <li class="pb-2 pb-md-1"><a href="{{route('terms')}}" class="text-decoration-none">Terms & Conditions</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-2">
