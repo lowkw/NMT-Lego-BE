@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/js/app.js',
                 'resources/views/js/app.js',
+                'resources/views/css/style.css',
             ],
             refresh: true,
         }),
