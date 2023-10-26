@@ -1,66 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Just One Brick
+We were tasked with building a website that would essentially categorise LEGO sets by theme.
+It also needed to allow users to register and create collections which they can add LEGO sets to.
+We are using Laravel with a MySQL database to develop these features along with a third-party API provided from rebrickable.com to source all the LEGO set data.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## Deploy to AWS
+This guide assumes you already have a domain pointing to your server and Nginx/Apache installed and pointing to your www folder. You will also need a mysql server running on your instance and php installed:
+```bach
+sudo apt-get install nginx mariadb-server php libapache2-mod-php php-curl php-common php-xml php-gd php-opcache php-mysql php-mbstring php-tokenizer php-json php-bcmath php-zip unzip curl git -y
+```
+this command will install nginx, a mariadb server, php will all the required extensions, curl and git, feel free to remove what you already have.
+- SSH into your EC2 instance
+- cd to public www folder
+- Clone Laravel repo into public www folder:
+```bach
+sudo git clone https://github.com/20095325/NMT-Lego-BE.git .
+```
+- we use a "." at the end to pervent git from making another folder 
+- copy example.env file:
+```bach
+sudo cp example.env .env
+```
+- create mysql database, noting the password user and database name:
+```bach
+sudo mysql
+```
+```bach
+CREATE USER 'user'@'hostname';
+CREATE DATABASE dbTest;
+GRANT ALL PRIVILEGES ON dbTest.* To 'user'@'hostname' IDENTIFIED BY 'password';
+exit;
+```
+- change the following variables in the .env file:
+```bach
+sudo nano .env
+```
+```bach
+APP_NAME=Just One Brick
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://justonebrick.com.au # what ever the current domain is
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dbTest
+DB_USERNAME=user
+DB_PASSWORD=password
+```
+- install all composer packages: this assumes you have composer installed
+```bach
+sudo composer install
+```
+- generate a new application key:
+```bach
+sudo php artisan key:generate
+```
+- build project for production, this assumes you have node installed:
+```bach
+sudo npm build
+```
+you should now be able to go to the domain and view the site in a browser (https://justonebrick.com.au)

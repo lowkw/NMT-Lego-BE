@@ -200,13 +200,12 @@
                                                 <br /><br /><a href="/wishlist/create"><button type="button" class="btn btn-primary">Here</button></a>
                                             </p>
                                     @else
-                                        @if(count($legoSets) !== 0))
+                                        @if(count($legoSets) !== 0)
                                             @foreach($userWishlists as $wishlist)
                                                 <div class="col-10 col-sm-6 col-lg-4 mb-4">
                                                     <form action="{{ route('sets.store') }}" class="w-100" method="post">
                                                         @csrf
                                                         <p>
-
                                                             <input type="hidden" name="wishlist_id" value="{{ $wishlist->id }}"/>
                                                             <input type="hidden" name="set_id" value="{{ $set->id }}"/>
                                                             <button type="submit" class="w-full h-10 text-blue-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-800" onclick="showLoading()">{{ $wishlist->name }}</button>
