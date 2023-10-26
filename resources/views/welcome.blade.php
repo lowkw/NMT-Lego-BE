@@ -34,7 +34,7 @@
                 <!--Sets-->
             @foreach($legoSets as $set)
                 <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                    <div class="card">
+                    <div class="card h-100">
                         <div style="">
                             <img src="{{ $set->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
                         </div>
