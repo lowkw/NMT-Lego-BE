@@ -58,6 +58,6 @@ sudo php artisan key:generate
 ```
 - build project for production, this assumes you have node installed:
 ```bach
-sudo npm build
+sudo npm run build
 ```
 you should now be able to go to the domain and view the site in a browser (https://justonebrick.com.au)
