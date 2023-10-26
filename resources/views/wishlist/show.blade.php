@@ -20,7 +20,11 @@
                 <div class="col" style="padding:1%;">
                     <div class="card" style="width: 25rem;">
                         <div style="">
+                        @if($set->set_img_url)
                             <img src="{{ $set->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
+                        @else    
+                            <img src="{{ asset('images/lego-default.jpg') }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
+                        @endif
                         </div>
                         <div class="card-body">
                             <p class="card-text">

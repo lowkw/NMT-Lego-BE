@@ -12,7 +12,11 @@
         </div>
     </section>
     <div class="container d-flex gap-5 pt-5 flex-column flex-lg-row pb-5">
-        <img class="img-fluid col-12 col-lg-6 rounded-4" src="{{$set->set_img_url}}" alt="{{$set->name}}">
+    @if($set->set_img_url)
+    <img class="img-fluid col-12 col-lg-6 rounded-4" src="{{$set->set_img_url}}" alt="{{$set->name}}">
+    @else    
+        <img src="{{ asset('images/lego-default.jpg') }}" class="img-fluid col-12 col-lg-6 rounded-4" alt="{{ $set->name }}">
+    @endif
         <div class="details p-2 col-12 col-lg-6">
             <p>Theme: {{$set->theme->name}}</p>
             <p>Year: {{$set->year}}</p>
