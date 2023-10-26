@@ -19,11 +19,20 @@
             </div>
         </div>
     </div>
-    @if ($userlegoSets)
         <!---------Sets list----------->
         <div class="container p-5">
-            <h2 class="my-5">Latest Sets Added to Collection</h2>
+            <div class="row justify-content-sm-between">
+                <div class="col-sm-10">
+                    <h2 class="my-5">Latest Sets Added to Collection</h2>
+                </div>
+                <div class="col-sm-2">
+                    <a role="button" href="{{ route('legoCollection.index') }}" class="btn btn-primary btn-sm m-0 my-5">View your collection</a>
+                </div>
+            </div>
             <div class="row">
+                @if($userlegoSets->isEmpty())
+                <p class="text-center">You have no sets in your collection yet.</p>
+                @else
                 <!--Sets-->
                 @foreach($userlegoSets as $set)
                     <div class="col-12 col-sm-6 col-lg-4 mb-4">
@@ -49,11 +58,10 @@
                     </div>
                 @endforeach
                 <!--End Sets-->
+                @endif
             </div>
         </div>
         <!---------End Sets list----------->
-    @endif
-    @if ($userWishlists)
         <!---------Wishlist list----------->
         <div class="container p-5">
             <div class="row justify-content-sm-between">
@@ -65,6 +73,9 @@
                 </div>
             </div>
             <div class="row">
+            @if($userWishlists->isEmpty())
+            <p class="text-left">You have no wishlists yet.</p>
+            @else
                 <!--wishlists-->
                 @foreach($userWishlists as $wishlist)
                     <div class="col-12 col-sm-6 col-lg-4 mb-4">
@@ -86,8 +97,8 @@
                     </div>
                 @endforeach
                 <!--End wishlists-->
+                @endif
             </div>
         </div>
         <!---------End Wishlist list----------->
-    @endif
 </x-guest-layout>

@@ -17,7 +17,11 @@
 <!---------Sets list----------->
 
     <div class="container">
-        <div class="row row-cols-auto justify-content-md-center">
+        <div class="row justify-content-md-center">
+            @if($wishlists->isEmpty())
+            <p class="text-center">You have no wishlists yet.</p>
+            <a role="button" href="{{ route('wishlist.create') }}" class="btn btn-primary w-50 m-0">Create a wishlist</a>
+            @else
                 <!--Sets-->
             @foreach($wishlists as $wishlist)
                 <div class="col" style="padding:1%;">
@@ -27,12 +31,12 @@
 
                             </p><h3 class="text-center">{{ $wishlist->name }}</h3>
                             <p class="text-center">Status: {{ $wishlist->public == true ? "Public" : "Private"  }}</p>
-                            <div class="d-grid gap-2 col-6 mx-auto">
-                                <a href="{{ route('wishlist.edit', compact('wishlist')) }}"><button class="btn btn-primary"  type="submit">
-                                    <i class="fa fa-eye"></i>
-                                    Edit
-                                </button></a>
-                            </div>
+                            <div class="flex space-x-4 justify-center mt-4">
+                                    <div class="py-2">
+                                        <a role="button" href="{{ route('wishlist.edit', compact('wishlist')) }}" class="btn btn-primary btn-sm m-0">Edit</a>
+                                        <a role="button" href="{{ route('wishlist.show', compact('wishlist')) }}" class="btn btn-primary btn-sm m-0">View Wishlist -&gt;</a>
+                                    </div>
+                                </div>
                             <p></p>
                         </div>
                     </div>
@@ -50,8 +54,10 @@
                     </div>
                 </nav>
             </div>
+            @endif
         </div>
     </div>
 <!---------End Sets list----------->
+    
 
 </x-guest-layout>

@@ -13,7 +13,7 @@
     <div class="row row-cols-2 row-cols-lg-3 pb-6">
 
         <!--Theme-->
-        <div class="col-4 col-lg-2">
+        <div class="col-12 col-sm-4 col-lg-2">
             <b>Theme</b>
             <div class="input-group mb-3">
                 <select class="form-select" id="legoTheme" name="theme">
@@ -28,7 +28,7 @@
         <!--End Theme-->
 
         <!--Year-->
-        <div class="col-4 col-lg-1">
+        <div class="col-12 col-sm-4 col-lg-1">
             <b>Year</b>
             <div class="input-group mb-3">
                 <select class="form-select" id="legoYear" name="year">
@@ -42,21 +42,21 @@
         <!--End Year-->
 
         <!--Range Slider-->
-        <div class="col-4 col-lg-3">
+        <div class="col-12 col-sm-4 col-lg-3">
             <b>Number of parts</b>
             <div class="range_container mt-2 mb-0">
                 <div class="sliders_control">
                     <div class="row">
                         <div class="col-12 col-lg-12">
-                            <input id="fromSlider" type="range" value="{{ old('fromParts',request('fromParts')) !== null ? old('fromParts', request('fromParts')) : '0' }}" min="0" max="2000">
-                            <input class="to-slider" id="toSlider" type="range" value="{{ old('toParts', request('toParts')) !== null ? old('toParts', request('toParts')) : '0' }}" min="0" max="2000">
+                            <input id="fromSlider" type="range" value="{{ old('fromParts',request('fromParts')) !== null ? old('fromParts', request('fromParts')) : $minParts->num_parts }}" min="{{$minParts->num_parts}}" max="{{$maxParts->num_parts}}">
+                            <input class="to-slider" id="toSlider" type="range" value="{{ old('toParts', request('toParts')) !== null ? old('toParts', request('toParts')) : $minParts->num_parts }}" min="{{$minParts->num_parts}}" max="{{$maxParts->num_parts}}">
                         </div>
-                        <div class="col-4 col-lg-6 mt-2">
-                            <input class="form_control_container__time__input" name="fromParts" type="number" id="fromInput" value="{{ old('fromParts', request('fromParts')) !== null ? old('fromParts', request('fromParts')) : '0' }}" min="0" max="2000">
+                        <div class="col-4 col-lg-4 mt-1">
+                            <input class="form_control_container__time__input" name="fromParts" type="number" id="fromInput" value="{{ old('fromParts', request('fromParts')) !== null ? old('fromParts', request('fromParts')) : $minParts->num_parts }}" min="{{$minParts->num_parts}}" max="{{$maxParts->num_parts}}">
                         </div>
-                        <div class="col-4 col-lg-3"></div>
-                        <div class="col-4 col-lg-3 mt-2">
-                            <input class="form_control_container__time__input" name="toParts" type="number" id="toInput" value="{{ old('toParts', request('toParts')) !== null ? old('toParts', request('toParts')) : '0' }}" min="0" max="2000">
+                        <div class="col-4 col-lg-4"></div>
+                        <div class="col-4 col-lg-4 mt-1">
+                            <input class="form_control_container__time__input" name="toParts" type="number" id="toInput" value="{{ old('toParts', request('toParts')) !== null ? old('toParts', request('toParts')) : $minParts->num_parts }}" min="{{$minParts->num_parts}}" max="{{$maxParts->num_parts}}">
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
         <!--End Range Slider-->
 
             <!--Sort by-->
-            <div class="col-4 col-lg-2">
+            <div class="col-12 col-sm-4 col-lg-2">
                 <b>Sort by</b>
                 <div class="input-group mb-3">
                     <select class="form-select" id="inputGroupSelect02" name="sortBy">
@@ -81,7 +81,7 @@
             <!--End Sort by-->
 
             <!--Search -->
-            <div class="col-4 col-lg-2">
+            <div class="col-12 col-sm-4 col-lg-2">
                 <b>Keywords</b>
                     <div class="input-group">
                         <input type="text" class="for w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline"
@@ -93,8 +93,8 @@
             </div>
             <!--End Search -->
         <!--Search -->
-        <div class="col-4 col-lg-2">
-            <div class="input-group mt-4">
+        <div class="col-12 col-sm-4 col-lg-2">
+            <div class="input-group my-4">
                 <button type="button" class="w-full h-10 px-6 text-blue-100 transition-colors duration-150 bg-blue-500 rounded-lg focus:shadow-outline hover:bg-blue-800"
                         id="button-addon2" onclick="clearAllSearchInput()">
                     <i class="fa-solid fa-eraser"></i>&emsp;Clear
@@ -115,7 +115,7 @@
 
 <!---------Sets list----------->
 
-    <div class="container">
+    <div class="container pt-5">
         <div class="row justify-content-md-center">
             <!--Sets-->
             @if (count($legoSets) === 0)
@@ -123,7 +123,7 @@
             @else
             @foreach($legoSets as $set)
                 <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                    <div class="card">
+                    <div class="card h-100">
                         <div style="">
                         @if($set->set_img_url)
                             <img src="{{ $set->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">

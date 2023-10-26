@@ -13,12 +13,15 @@
     <!--User Collection -->
 
     <div class="container pt-5">
-        <div class="row row-cols-auto justify-content-md-center">
-
+        <div class="row justify-content-md-center">
+            @if($userlegoSets->isEmpty())
+            <p class="text-center">You have no sets in this wishlist yet.</p>
+            <a role="button" href="{{route('sets.index')}}" class="btn btn-primary w-50 m-0">Browse Sets</a>
+            @else
             <!--Collection Sets-->
             @foreach($userlegoSets as $set)
-                <div class="col" style="padding:1%;">
-                    <div class="card" style="width: 25rem;">
+                <div class="col-12 col-sm-6 col-lg-4 mb-4">
+                    <div class="card h-100">
                         <div style="">
                         @if($set->set_img_url)
                             <img src="{{ $set->set_img_url }}" class="lego-set-img mx-auto d-block object-fit-cover w-100" alt="{{ $set->name }}" height="300px">
@@ -59,7 +62,7 @@
                     </div>
                 </nav>
             </div>
-
+            @endif
         </div>
     </div>
 

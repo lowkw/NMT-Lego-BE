@@ -79,7 +79,9 @@ class LegoSetController extends Controller
         $themeList = themes::all()->sortBy('name');
         //Get all years
         $yearList = legoSet::select('year')->orderBy('year',"DESC")->distinct()->get();
-        return view('legoSets.index', compact(['legoSets', 'userWishlists','themeList','yearList']));
+        $maxParts = legoSet::select('num_parts')->orderBy('num_parts',"DESC")->distinct()->get()->first();
+        $minParts = legoSet::select('num_parts')->orderBy('num_parts',"ASC")->distinct()->get()->first();
+        return view('legoSets.index', compact(['legoSets', 'userWishlists','themeList','yearList', 'maxParts', 'minParts']));
     }
 
     /**
