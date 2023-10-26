@@ -60,7 +60,7 @@
 
 <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">9. Contact Information</h2>
 
-<p class="mb-3 text-gray-500 dark:text-gray-400">If you have any questions or concerns regarding these Terms and Conditions, please contact us at [email address].</p>
+<p class="mb-3 text-gray-500 dark:text-gray-400">If you have any questions or concerns regarding these Terms and Conditions, please contact us at <a href="{{route('contact.index')}}">here.</a></p>
 
 <p class="mb-3 text-gray-500 dark:text-gray-400">Thank you for using Just One Brick. Enjoy managing your Lego collection!</p>
 
