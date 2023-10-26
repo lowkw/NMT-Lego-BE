@@ -16,7 +16,7 @@ this command will install nginx, a mariadb server, php will all the required ext
 ```bach
 sudo git clone https://github.com/20095325/NMT-Lego-BE.git .
 ```
-- we use a "." at the end to pervent git from making another folder 
+- we use a "." at the end to prevent git from making another folder 
 - copy example.env file:
 ```bach
 sudo cp example.env .env
