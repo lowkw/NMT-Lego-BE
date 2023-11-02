@@ -667,3 +667,8 @@ input[type="range"] {
 }
 }
 
+.profileCard-aboutUs{
+    color:darkslateblue;
+    font-size: 1.3rem;
+    background-image: url('http://localhost/images/lego-bck3.jpg');
+}

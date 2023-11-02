@@ -24,6 +24,7 @@ use App\Models\legoSet;
 
 Route::get('/privacy', [StaticPageController::class, 'privacy'])->name('privacy');
 Route::get('/terms-and-conditions', [StaticPageController::class, 'terms'])->name('terms');
+Route::get('/aboutUs', [StaticPageController::class, 'aboutUs'])->name('aboutUs');
 
 Route::get('/', function () {
     $legoSets = legoSet::orderBy('id', 'DESC')->paginate(6);
