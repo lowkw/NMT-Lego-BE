@@ -75,7 +75,7 @@
                             <a title="Sets" href="{{route('sets.index')}}" class="nav-link">Sets</a>
                         </li>
                         <li itemscope="itemscope" itemtype="" id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45 nav-item">
-                            <a title="Sets" href="{{route('about.index')}}" class="nav-link">About</a>
+                            <a title="Sets" href="{{route('about')}}" class="nav-link">About</a>
                         </li>
                         <li itemscope="itemscope" itemtype="" id="menu-item-45" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-45 nav-item">
                             <a title="Contact Us" href="{{route('contact.index')}}" class="nav-link">Contact Us</a>
