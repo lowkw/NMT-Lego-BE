@@ -21,8 +21,8 @@ class StaticPageController extends Controller
         return view('static.terms');
     }
 
-    public function aboutUs()
+    public function about()
     {
-        return view('aboutUs.index');
+        return view('about.index');
     }
 }
