@@ -4,7 +4,7 @@
         <div class="row flex-column align-items-end">
             <h1 class="page-title display-1 text-end" style="color:white;"><span class="job-color">J</span>ust <span class="job-color">O</span>ne <span class="job-color">B</span>rick</h1>
             <div class="col col-md-6">
-                <p class="heading-text text-end">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p class="heading-text text-end">Welcome to Just One Brick, your go-to destination for all things LEGO! Embrace the world of endless possibilities.</p>
             </div>
             <div class="flex gap-5 col col-md-6 mt-5 justify-content-end">
                 <a role="button" href="{{route('register')}}" class="btn btn-primary w-50 m-0">Sign Up</a>
@@ -17,7 +17,7 @@
 <div class="container banner-overlay" >
     <div class="row align-items-center">
         <div class="col-12 col-md-8">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <p>With Just One Brick, you can create a personalized account that allows you to curate and manage your LEGO sets effortlessly. Whether you're a seasoned collector or just starting your brick-building journey, our platform offers a seamless experience for adding and organizing your LEGO sets. Dive into a community of like-minded enthusiasts, share your collection, and discover new sets to expand your LEGO universe. Just One Brick is where passion meets precision, allowing you to build, organize, and connect one brick at a time. Join us and let the adventure unfold!</p>
             <a role="button" href="{{route('register')}}" class="btn btn-primary w-50 m-0 mt-5">Start for free</a>
         </div>
         <div class="col-12 col-md-4">
